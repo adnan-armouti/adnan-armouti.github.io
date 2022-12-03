@@ -8,4 +8,4 @@ date: 2022-10-20
 location: "Los Angeles, CA, USA"
 ---
 
-Presented our group's latest research work to undergradutes interested in research opportunities, organized by UCLA ACM AI branch. More information [here](https://www.uclaacm.com/events).
+Presented our group's latest research work to undergradutes interested in research opportunities, organized by UCLA ACM AI branch. More information available [here](https://www.uclaacm.com/events).

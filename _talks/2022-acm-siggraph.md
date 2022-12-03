@@ -8,4 +8,4 @@ date: 2022-08-08
 location: "Vancouver, BC, Canada"
 ---
 
-Presented our group's latest research work to undergradutes interested in research opportunities, organized by UCLA ACM AI branch. More information [here](https://s2022.siggraph.org/presentation/?id=papers_611&sess=sess115).
+Presented our camera and mmWave radar fusion paper for equitable heart rate estimation at the ACM SIGGRAPH 2022 conference in Vancouver, British Columbia, Canada. More information available [here](https://s2022.siggraph.org/presentation/?id=papers_611&sess=sess115).
