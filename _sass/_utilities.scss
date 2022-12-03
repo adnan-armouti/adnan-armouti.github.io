@@ -236,10 +236,6 @@ body:hover .visually-hidden button {
   .fa-linkedin-square {
     color: $linkedin-color;
   }
-  
-  .fa-mastodon {
-    color: $mastodon-color;
-  }
 
   .fa-pinterest,
   .fa-pinterest-p,
@@ -450,8 +446,8 @@ body:hover .visually-hidden button {
    ========================================================================== */
 
 .footnote {
-  color: $link-color;
-  text-decoration: none !important;
+  color: mix(#fff, $gray, 25%);
+  text-decoration: none;
 }
 
 .footnotes {
@@ -465,7 +461,7 @@ body:hover .visually-hidden button {
 
 a.reversefootnote {
   color: $gray;
-  text-decoration: none !important;
+  text-decoration: none;
 
   &:hover {
     text-decoration: underline;
