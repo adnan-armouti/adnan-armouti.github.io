@@ -6,5 +6,5 @@ date: 2022-07-01
 venue: 'US Provisional Application 63/177,229'
 citation: '<i>US Provisional Application 63/177,229</i>.
     <br />
-    [Kadambi, A.](https://www.ee.ucla.edu/achuta-kadambi/), [Jalilian, L.](https://www.uclahealth.org/providers/laleh-jalilian), Abari, O., Cannesson, M., [Kita, A.](https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/), [Chari, P.](https://pradyumnachari.github.io/), <b>Armouti, A.</b>'
+    <A HREF="https://www.ee.ucla.edu/achuta-kadambi/">Kadambi, A.</A>, <A HREF="https://www.uclahealth.org/providers/laleh-jalilian">Jalilian, L.</A>, Abari, O., Cannesson, M., <A HREF="https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/">Kita, A.</A>, <A HREF="https://pradyumnachari.github.io/">Chari P.</A>, <b>Armouti, A.</b>'
 ---
