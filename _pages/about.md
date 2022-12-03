@@ -23,10 +23,10 @@ June 2020: Awarded SRC URP Scholarship.
 
 Publications
 ======
-Alexander Vilesov*, Pradyumna Chari*, Adnan Armouti*, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi. 2022. Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography. ACM Trans. Graph. 41, 4, Article 1 (July 2022), 14 pages. https://doi.org/10.1145/3528223.3530161
+Alexander Vilesov<sup>*</sup>, Pradyumna Chari<sup>*</sup>, <b>Adnan Armouti<sup>*</sup> </b>, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi. 2022. Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography. ACM Trans. Graph. 41, 4, Article 1 (July 2022), 14 pages. https://doi.org/10.1145/3528223.3530161
 
 Patents
 ======
-Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., Armouti, A. 2021. “Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms,” Int'l Application PCT/US19/22532, filed June 16, 2021.
+Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., <b>Armouti, A.</b> 2021. “Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms,” Int'l Application PCT/US19/22532, filed June 16, 2021.
 
-Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., Armouti, A. 2021. “MMHEALTH: Multimodal Health Sensing Platform,” US Provisional Application 63/177,229, filed April 20, 2021.
+Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., <b>Armouti, A.</b> 2021. “MMHEALTH: Multimodal Health Sensing Platform,” US Provisional Application 63/177,229, filed April 20, 2021.
