@@ -7,9 +7,9 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Morgan Schwartz"
+title                    : "Adnan Armouti"
 title_separator          : "-"
-name                     : &name "Morgan Schwartz"
+name                     : &name "Adnan Armouti"
 description              : &description "PhD Candidate in Biology"
 url                      : https://adnan-armouti.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
@@ -82,16 +82,16 @@ analytics:
 
 # Site Author
 author:
-  name             : "Morgan Schwartz"
+  name             : "Adnan Armouti"
   avatar           : "profile.png"
-  bio              : "PhD Candidate in Biology"
-  location         : "Pasadena, CA"
-  employer         : Caltech
+  bio              : "MS @ UCLA ECE, GSR @ VMG"
+  location         : "Los Angeles, CA"
+  employer         : 
   pubmed           :
-  orcid            : "https://orcid.org/0000-0001-8131-9125"
-  googlescholar    : "https://scholar.google.com/citations?user=dLl7P3kAAAAJ&hl=en&oi=ao"
-  email            : "msschwartz@caltech.edu"
-  researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
+  orcid            : "https://orcid.org/0000-0002-4448-3089"
+  googlescholar    : "https://scholar.google.com/citations?hl=en&user=5CpT57IAAAAJ"
+  email            : "adnanarmouti@ucla.edu"
+  researchgate     :  
   uri              :
   bitbucket        :
   codepen          :
@@ -104,12 +104,12 @@ author:
   google_plus      :
   keybase          :
   instagram        :
-  impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
+  impactstory      : 
   lastfm           :
-  linkedin         : "morgan-schwartz-5b2929a9"
+  linkedin         : "adnan-armouti"
   pinterest        :
   soundcloud       :
-  stackoverflow    : # http://stackoverflow.com/users/123456/username
+  stackoverflow    : 
   steam            :
   tumblr           :
   twitter          :
@@ -255,7 +255,7 @@ sass:
 permalink: /:categories/:title/
 # paginate: 5 # amount of posts to show
 # paginate_path: /page:num/
-timezone: America/Chicago # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+timezone: America/Los_Angeles # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Plugins
