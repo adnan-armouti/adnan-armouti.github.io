@@ -4,7 +4,7 @@ collection: talks
 type: "Poster"
 permalink: /talks/2022-ieee-iccp
 venue: "IEEE International Conference on Computational Photography"
-date: 2013-08-01
+date: 2022-08-01
 location: "Pasadena, CA, USA"
 ---
 
