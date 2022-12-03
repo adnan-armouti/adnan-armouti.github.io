@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "About me"
+title: "Research Statement"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -8,23 +8,25 @@ redirect_from:
   - /about.html
 ---
 
-Welcome! I am a data scientist applying machine learning tools and causal
-inference techniques to remote sensing data. I am also an affiliated
-researcher with the [Data-driven Analysis of Peace Project](https://dapp-lab.org)
-and a research collaborator with the 
-[Research on International Policy Implementation Lab](https://bridgingthegapproject.org/ripil).
+I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/), advised by [Professor Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/) at UCLA. My research interests encompass computer vision and computational imaging. More specifically, I work on the integration of multisensor hardware stacks and multimodal fusion learning to sense the extra-perceptual, primarily for medical applications. These include medical triaging of vital signs, disease diagnosis (e.g. sleep apnea), and health equity across demographics. Previously, I completed my Bachelor of Science in Electrical Engineering and Bachelor of Arts in Economics at UCLA, funded by the [NSF REU Fellowship](https://www.nsf.gov/crssprgm/reu/). I've received the [Intel URP Scholarship](https://www.intel.com/content/www/us/en/diversity/scholars-program-scholarships.html) and [SRC URP Scholarship](https://www.intel.com/content/www/us/en/diversity/scholars-program-scholarships.html) awards.
 
-I earned my Ph.D in Political Science from the
-[University *of* North Carolina *at* Chapel Hill](https://www.unc.edu) and my
-B.A. in Political Science from [Haverford College](https://www.haverford.edu).
-My academic work has been [published](publications) or is forthcoming in
-*International Studies Quarterly*, *Conflict Management and Peace Science*,
-*Political Science Research and Methods*, and *PS: Political Science & Politics*,
-among other outlets. This [research](research) explores the causes and
-consequences of political violence using a broad variety of methods such as
-latent variable models, geospatial analysis, and big data. While primarily
-focused on civil conflict, it also examines contentious political phenomena
-including terrorism and economic statecraft, and develops new measures of
-institutions in international relations. I have [teaching](teaching) experience
-in both quantitative methodology and international relations, and am a certified
-instructor with [The Carpentries](https://carpentries.org).
+Latest News
+======
+July 2022: Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada.\
+July 2022: Co-presented Poster at IEEE ICCP 2022 in Pasadena, CA, USA.\
+June 2022: Attended IEEE CVPR in New Orleans, LA, USA.\
+May 2022: Journal Paper accepted to ACM SIGGRAPH 2022.\
+January 2022: Awarded VMG GSR Scholarship.\
+June 2021: Awarded NSF REU Fellowship.\
+September 2020: Awarded Intel URP Scholarship.\
+June 2020: Awarded SRC URP Scholarship.
+
+Publications
+======
+Alexander Vilesov*, Pradyumna Chari*, Adnan Armouti*, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi. 2022. Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography. ACM Trans. Graph. 41, 4, Article 1 (July 2022), 14 pages. https://doi.org/10.1145/3528223.3530161
+
+Patents
+======
+Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., Armouti, A. 2021. “Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms,” Int'l Application PCT/US19/22532, filed June 16, 2021.
+
+Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., Armouti, A. 2021. “MMHEALTH: Multimodal Health Sensing Platform,” US Provisional Application 63/177,229, filed April 20, 2021.
