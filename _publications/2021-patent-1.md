@@ -6,5 +6,5 @@ date: 2022-07-01
 venue: 'US Provisional Application 63/177,229'
 citation: '<i>US Provisional Application 63/177,229</i>.
     <br />
-    Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., <b>Armouti, A.</b>'
+    [Kadambi, A.](https://www.ee.ucla.edu/achuta-kadambi/), [Jalilian, L.](https://www.uclahealth.org/providers/laleh-jalilian), Abari, O., Cannesson, M., [Kita, A.](https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/), [Chari, P.](https://pradyumnachari.github.io/), <b>Armouti, A.</b>'
 ---

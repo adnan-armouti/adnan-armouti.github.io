@@ -27,7 +27,7 @@ Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography.
 <br />
 <i>ACM Transactions on Graphics (SIGGRAPH)</i>.
 <br />
-Alexander Vilesov*, Pradyumna Chari*, <b>Adnan Armouti*</b>, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi.
+[Alexander Vilesov*](https://asvilesov.github.io/), [Pradyumna Chari*](https://pradyumnachari.github.io/), <b>Adnan Armouti*</b>, [Anirudh Bindiganavale Harish](https://anirudh0707.github.io/), Kimaya Kulkarni, Ananya Deoghare, [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), and [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/).
 
 Patents
 ======
@@ -35,10 +35,10 @@ Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Pl
 <br />
 <i>Int'l Application PCT/US19/22532</i>.
 <br />
-Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., <b>Armouti, A.</b>
+[Kadambi, A.](https://www.ee.ucla.edu/achuta-kadambi/), [Jalilian, L.](https://www.uclahealth.org/providers/laleh-jalilian), [Chari, P.](https://pradyumnachari.github.io/), Talegaonkar, C., Karinca, D., Cannesson, M., Kabra, K., Salehi-Abari, O., [Kita, A.](https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/), <b>Armouti, A.</b>
 
 MMHEALTH: Multimodal Health Sensing Platform.
 <br />
 <i>US Provisional Application 63/177,229</i>.
 <br />
-Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., <b>Armouti, A.</b>
+[Kadambi, A.](https://www.ee.ucla.edu/achuta-kadambi/), [Jalilian, L.](https://www.uclahealth.org/providers/laleh-jalilian), Abari, O., Cannesson, M., [Kita, A.](https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/), [Chari, P.](https://pradyumnachari.github.io/), <b>Armouti, A.</b>
