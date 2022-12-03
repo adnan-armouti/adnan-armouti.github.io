@@ -26,6 +26,6 @@ group :jekyll_plugins do
   gem 'hawkins'
 end
 
-# gem "jekyll", "3.9.0"
+gem "jekyll", "3.9.0"
 
-# gem "webrick", "~> 1.7"
+gem "webrick", "~> 1.7"
