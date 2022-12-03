@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/2022-blending
 date: 2022-07-01
 venue: 'ACM Transactions on Graphics (TOG)'
-paperurl: '/files/pdf/research/BayesPostEst.pdf'
+# paperurl: ''
 link: 'https://doi.org/10.1145/3528223.3530161'
 github: 'https://github.com/UCLA-VMG/EquiPleth'
 citation: '<i>ACM Transactions on Graphics (SIGGRAPH)</i>.

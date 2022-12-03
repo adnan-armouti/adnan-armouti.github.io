@@ -18,15 +18,28 @@ June 2022: Attended IEEE CVPR in New Orleans, LA, USA.\
 May 2022: Journal Paper accepted to ACM SIGGRAPH 2022.\
 January 2022: Awarded VMG GSR Scholarship.\
 June 2021: Awarded NSF REU Fellowship.\
+May 2021: $1M DARPA Grant Accepted for Remote Health Sensing.\
 September 2020: Awarded Intel URP Scholarship.\
 June 2020: Awarded SRC URP Scholarship.
 
 Publications
 ======
-Alexander Vilesov<sup>*</sup>, Pradyumna Chari<sup>*</sup>, <b>Adnan Armouti<sup>*</sup> </b>, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi. 2022. Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography. ACM Trans. Graph. 41, 4, Article 1 (July 2022), 14 pages. https://doi.org/10.1145/3528223.3530161
+Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography.
+<br />
+<i>ACM Transactions on Graphics (SIGGRAPH)</i>.
+<br />
+Alexander Vilesov*, Pradyumna Chari*, <b>Adnan Armouti*</b>, Anirudh Bindiganavale Harish, Kimaya Kulkarni, Ananya Deoghare, Laleh Jalilian, and Achuta Kadambi.
 
 Patents
 ======
-Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., <b>Armouti, A.</b> 2021. “Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms,” Int'l Application PCT/US19/22532, filed June 16, 2021.
+Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms.
+<br />
+<i>Int'l Application PCT/US19/22532</i>.
+<br />
+Kadambi, A., Jalilian, L., Chari, P., Talegaonkar, C., Karinca, D, Cannesson, M., Kabra, K., Salehi-Abari, O., Kita, A., <b>Armouti, A.</b>
 
-Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., <b>Armouti, A.</b> 2021. “MMHEALTH: Multimodal Health Sensing Platform,” US Provisional Application 63/177,229, filed April 20, 2021.
+MMHEALTH: Multimodal Health Sensing Platform.
+<br />
+<i>US Provisional Application 63/177,229</i>.
+<br />
+Kadambi, A., Jalilian, L., Abari, O., Cannesson, M., Kita, A., Chari, P., <b>Armouti, A.</b>
