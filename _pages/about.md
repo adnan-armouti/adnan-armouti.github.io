@@ -12,15 +12,14 @@ I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/)
 
 Latest News
 ======
-July 2022: Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada.\
-July 2022: Co-presented Poster at IEEE ICCP 2022 in Pasadena, CA, USA.\
-June 2022: Attended IEEE CVPR in New Orleans, LA, USA.\
-May 2022: Journal Paper accepted to ACM SIGGRAPH 2022.\
-January 2022: Awarded VMG GSR Scholarship.\
-June 2021: Awarded NSF REU Fellowship.\
-May 2021: $1M DARPA Grant Accepted for Remote Health Sensing.\
-September 2020: Awarded Intel URP Scholarship.\
-June 2020: Awarded SRC URP Scholarship.
+<em>July 2022:</em> Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada.\
+<em>July 2022:</em> Co-presented Poster at IEEE ICCP 2022 in Pasadena, CA, USA.\
+<em>June 2022:</em> Attended IEEE CVPR in New Orleans, LA, USA.\
+<em>May 2022:</em> Journal Paper accepted to ACM SIGGRAPH 2022.\
+<em>January 2022:</em> Awarded VMG GSR Scholarship.\
+<em>June 2021:</em> Awarded NSF REU Fellowship.\
+<em>September 2020:</em> Awarded Intel URP Scholarship.\
+<em>June 2020:</em> Awarded SRC URP Scholarship.
 
 Publications
 ======
