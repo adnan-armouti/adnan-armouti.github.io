@@ -26,7 +26,7 @@ Patrick Hunnicutt, William G. Nomikos, and Rob Williams. "Non-Combatants or Coun
 
 [Working Paper](https://osf.io/ta96y/){: .btn--research}
 
-William G. Nomikos, İpek Ece Şener, and Rob Williams. "Does UN Peacekeeping Protect Civilians? Evidence from the Border between Burkina Faso and Mali."
+William G. Nomikos, İpek Ece Şener, and . "Does UN Peacekeeping Protect Civilians? Evidence from the Border between Burkina Faso and Mali."
 
 > Research in political science has shown that UN peacekeeping operations are an important tool for ending civil war violence. However, much less is known about how UN peacekeepers affect civilian victimization. Given that civilians bear the primary costs of intrastate conflict,  understanding how international actors can contribute to the resolution of violence affecting them is a pressing concern. How does the presence of UN peacekeepers affect civilian victimization? We address this question by offering a straightforward empirical test of how UN peacekeeping patrols affect the likelihood that there will be violence against civilians. We build on the existing literature and established practices of peacekeeping to argue that peacekeepers deter violence against violence. To test our argument, we examine the case of Mail, the site of large-scale communal violence managed by UN peacekeepers since  2013. We employ a Geographic Regression Discontinuity Design (GRDD) around the border of Mali and Burkina Faso to estimate the causal effect of deploying peacekeepers to an area with growing communal tensions. Ultimately, our research provides robust causal evidence that UN peacekeeping works at the local level to protect civilians.
 
