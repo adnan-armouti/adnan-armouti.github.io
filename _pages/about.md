@@ -18,6 +18,7 @@ Latest News
 <em>May 2022:</em> Journal Paper accepted to ACM SIGGRAPH 2022.\
 <em>January 2022:</em> Awarded VMG GSR Scholarship.\
 <em>June 2021:</em> Awarded NSF REU Fellowship.\
+<em>May 2021:</em> $1M DARPA Grant Accepted for Equitable Remote Health Sensing.\
 <em>September 2020:</em> Awarded Intel URP Scholarship.\
 <em>June 2020:</em> Awarded SRC URP Scholarship.
 
