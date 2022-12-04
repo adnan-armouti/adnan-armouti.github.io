@@ -15,7 +15,7 @@ Latest News
 <em>July 2022:</em> Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada.\
 <em>July 2022:</em> Co-presented Poster at IEEE ICCP 2022 in Pasadena, CA, USA.\
 <em>June 2022:</em> Attended IEEE CVPR in New Orleans, LA, USA.\
-<em>May 2022:</em> Journal Paper accepted to ACM SIGGRAPH 2022.\
+<em>May 2022:</em> Journal Paper Accepted to ACM SIGGRAPH 2022.\
 <em>January 2022:</em> Awarded VMG GSR Scholarship.\
 <em>June 2021:</em> Awarded NSF REU Fellowship.\
 <em>May 2021:</em> $1M DARPA Grant Accepted for Equitable Remote Health Sensing.\
