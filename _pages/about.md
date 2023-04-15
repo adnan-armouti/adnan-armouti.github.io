@@ -12,7 +12,7 @@ I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/)
 
 Latest News
 ======
-<em>April 2023:</em> I will begin attending [Cornell](https://tech.cornell.edu/)'s Computer Science PhD program this fall. I will continue my research in wireless and multimodal sensing, advised by Prof. Rajalakshmi Nandakumar.\
+<em>April 2023:</em> I will begin attending [Cornell](https://tech.cornell.edu/)'s Computer Science PhD program this fall, advised by Prof. Rajalakshmi Nandakumar.\
 <em>January 2023:</em> ACM SIGGRAPH 2022 Journal Paper Featured in [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
 <em>September 2022:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias).\
 <em>August 2022:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [UCLA Newsroom](https://newsroom.ucla.edu/releases/fixing-skin-tone-bias-in-remote-heart-rate-sensors).\
