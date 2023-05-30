@@ -8,11 +8,11 @@ redirect_from:
   - /about.html
 ---
 
-I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/), advised by [Professor Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/) at UCLA. My research interests span wireless sensing, computational imaging and sensor fusion. More specifically, I work on the integration of wireless, imaging, and multimodal computer vision methods to sense the extra-perceptual, primarily for medical applications. These include vital sign triaging, disease diagnosis (e.g. sleep apnea), and affective computing. Previously, I completed my Bachelor of Science in Electrical Engineering and Bachelor of Arts in Economics at UCLA, funded by the [NSF REU Fellowship](https://www.nsf.gov/crssprgm/reu/). I've received the [Intel URP Scholarship](https://www.intel.com/content/www/us/en/diversity/scholars-program-scholarships.html), [SRC URP Scholarship](https://www.src.org/program/undergrad/) and UCLA ECE Distinguished Master’s Thesis Research awards.
+I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/), advised by [Professor Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/) at UCLA. My research interests span wireless sensing, computational imaging and sensor fusion. More specifically, I work on the integration of wireless, imaging, and multimodal computer vision methods to sense the extra-perceptual, primarily for medical applications. These include vital sign triaging, disease diagnosis (e.g. sleep apnea), and affective computing. Previously, I completed my Bachelor of Science in Electrical Engineering and Bachelor of Arts in Economics at UCLA, funded by the [NSF REU Fellowship](https://www.nsf.gov/crssprgm/reu/). I've received the [Intel URP Scholarship](https://www.intel.com/content/www/us/en/diversity/scholars-program-scholarships.html), [SRC URP Scholarship](https://www.src.org/program/undergrad/) and UCLA ECE Distinguished Master’s Thesis awards.
 
 Latest Updates
 ======
-<em>May 2023:</em> Awarded the 2022-2023 UCLA ECE Distinguished Master’s Thesis Research Award.\
+<em>May 2023:</em> Awarded the 2022-2023 UCLA ECE Distinguished Master’s Thesis Award.\
 <em>April 2023:</em> I will begin attending [Cornell](https://tech.cornell.edu/)'s Computer Science PhD program this fall, advised by Prof. Rajalakshmi Nandakumar.\
 <em>January 2023:</em> ACM SIGGRAPH 2022 Journal Paper Featured in [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
 <em>September 2022:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias).\
