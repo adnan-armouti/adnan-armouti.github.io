@@ -12,6 +12,7 @@ I am an MS candidate at the [Visual Machines Group](https://visual.ee.ucla.edu/)
 
 Latest Updates
 ======
+<em>June 2023:</em> Awarded the 2022-2023 UCLA ECE Outstanding Master’s Degree Award.\
 <em>May 2023:</em> Awarded the 2022-2023 UCLA ECE Distinguished Master’s Thesis Award.\
 <em>April 2023:</em> I will begin attending [Cornell](https://tech.cornell.edu/)'s Computer Science PhD program this fall, advised by Prof. Rajalakshmi Nandakumar.\
 <em>January 2023:</em> ACM SIGGRAPH 2022 Journal Paper Featured in [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
