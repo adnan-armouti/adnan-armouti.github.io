@@ -12,11 +12,11 @@ I am an incoming Computer Science PhD candidate at [Cornell Tech](https://tech.c
 
 Latest Updates
 ======
-<em>June 2023:</em> Granted the UCLA ECE Distinguished Master’s Thesis and Outstanding Master’s Student Awards.\
+<em>June 2023:</em> Granted the UCLA ECE Distinguished MS Thesis and Outstanding MS Student Awards.\
 <em>April 2023:</em> I will attend [Cornell](https://tech.cornell.edu/)'s CS PhD program, advised by Prof. Rajalakshmi Nandakumar.\
 <em>January 2023:</em> SIGGRAPH 2022 paper covered by [UCLA Newsroom](https://newsroom.ucla.edu/releases/fixing-skin-tone-bias-in-remote-heart-rate-sensors), [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias), and [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
 <em>August 2022:</em> Co-presented poster at SIGGRAPH (Vancouver, BC) and ICCP (Pasadena, CA).\
-<em>June 2022:</em> Attended CVPR in New Orleans, LA, USA.\
+<em>June 2022:</em> Attended CVPR (New Orleans, LA).\
 <em>May 2022:</em> Journal paper accepted to SIGGRAPH 2022.\
 <em>January 2022:</em> Awarded the VMG GSR Scholarship.\
 <em>June 2021:</em> Awarded the NSF REU Fellowship.\
