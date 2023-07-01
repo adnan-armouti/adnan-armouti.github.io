@@ -12,21 +12,16 @@ I am an incoming Computer Science PhD candidate at [Cornell Tech](https://tech.c
 
 Latest Updates
 ======
-<em>June 2023:</em> Awarded the 2022-2023 UCLA ECE Outstanding Master’s Student Award.\
-<em>May 2023:</em> Awarded the 2022-2023 UCLA ECE Distinguished Master’s Thesis Award.\
+<em>June 2023:</em> Awarded the 2022-2023 UCLA ECE Distinguished Master’s Thesis and Outstanding Master’s Student Awards.\
 <em>April 2023:</em> I will begin attending [Cornell](https://tech.cornell.edu/)'s Computer Science PhD program this fall, advised by Prof. Rajalakshmi Nandakumar.\
-<em>January 2023:</em> ACM SIGGRAPH 2022 Journal Paper Featured in [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
-<em>September 2022:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias).\
-<em>August 2022:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [UCLA Newsroom](https://newsroom.ucla.edu/releases/fixing-skin-tone-bias-in-remote-heart-rate-sensors).\
-<em>August 2022:</em> Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada.\
-<em>July 2022:</em> Co-presented Poster at IEEE ICCP 2022 in Pasadena, CA, USA.\
+<em>January 2023:</em> ACM SIGGRAPH 2022 Journal Paper Covered by [UCLA Newsroom](https://newsroom.ucla.edu/releases/fixing-skin-tone-bias-in-remote-heart-rate-sensors) and [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias), and Featured in [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
+<em>August 2022:</em> Co-presented Poster at ACM SIGGRAPH in Vancouver, BC, Canada and IEEE ICCP 2022 in Pasadena, CA, USA.\
 <em>June 2022:</em> Attended IEEE CVPR in New Orleans, LA, USA.\
 <em>May 2022:</em> Journal Paper Accepted to ACM SIGGRAPH 2022.\
 <em>January 2022:</em> Awarded the VMG GSR Scholarship.\
 <em>June 2021:</em> Awarded the NSF REU Fellowship.\
 <em>May 2021:</em> $1M DARPA Grant Accepted for Equitable Remote Health Sensing.\
-<em>September 2020:</em> Awarded the Intel URP Scholarship.\
-<em>June 2020:</em> Awarded the SRC URP Scholarship.
+<em>September 2020:</em> Awarded the SRC URP and Intel URP Scholarships.\
 
 Publications
 ======
