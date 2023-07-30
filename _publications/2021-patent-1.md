@@ -2,7 +2,7 @@
 title: "MMHEALTH: Multimodal Health Sensing Platform"
 collection: publications
 permalink: /publication/2021-patent-1
-date: 2023-07-01
+date: 2021-07-01
 venue: 'U.S. Patent 0,233,091'
 citation: '<i>U.S. Patent 0,233,091</i>.
     <br />
