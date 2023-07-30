@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Adnan Armouti"
 title_separator          : "-"
 name                     : &name "Adnan Armouti"
-description              : &description "PhD Candidate in Biology"
+description              : &description "PhD Candidate in Computer Science"
 url                      : https://adnan-armouti.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "adnan-armouti/adnan-armouti.github.io"
@@ -84,7 +84,7 @@ analytics:
 author:
   name             : "Adnan Armouti"
   avatar           : "profile.png"
-  bio              : "Incoming CS PhD @ Cornell Tech / Ex- @ UCLA VMG"
+  bio              : "CS PhD @ Cornell Tech"
   location         : "New York City, NY"
   employer         : 
   pubmed           :

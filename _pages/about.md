@@ -12,7 +12,7 @@ I am an incoming Computer Science PhD candidate at [Cornell Tech](https://tech.c
 
 Latest Updates
 ======
-<em>June 2023:</em> Granted the UCLA ECE Distinguished MS Thesis and Outstanding MS Student Awards.\
+<em>June 2023:</em> Received UCLA ECE's Distinguished MS Thesis and Outstanding MS Student awards.\
 <em>April 2023:</em> I will attend [Cornell](https://tech.cornell.edu/)'s CS PhD program, advised by Prof. Rajalakshmi Nandakumar.\
 <em>January 2023:</em> SIGGRAPH 2022 paper covered by [UCLA Newsroom](https://newsroom.ucla.edu/releases/fixing-skin-tone-bias-in-remote-heart-rate-sensors), [Daily Bruin](https://dailybruin.com/2022/09/29/ucla-visual-machines-group-develops-biosensor-that-could-eliminate-racial-bias), and [Forbes](https://www.forbes.com/sites/amyfeldman/2023/01/31/a-quick-remedy-proves-elusive-for-life-saving-pulse-oximeters-problems-with-darker-skin/?sh=37a11e721e14).\
 <em>August 2022:</em> Co-presented poster at SIGGRAPH (Vancouver, BC) and ICCP (Pasadena, CA).\
@@ -35,7 +35,7 @@ Patents
 ======
 Systems and Methods for Measuring Vital Signs Using Multimodal Health Sensing Platforms.
 <br />
-<i>Int'l Application PCT/US19/22532</i>.
+<i>U.S. Patent 0,233,091</i>.
 <br />
 [Kadambi, A.](https://www.ee.ucla.edu/achuta-kadambi/), [Jalilian, L.](https://www.uclahealth.org/providers/laleh-jalilian), [Chari, P.](https://pradyumnachari.github.io/), Talegaonkar, C., Karinca, D., Cannesson, M., Kabra, K., Salehi-Abari, O., [Kita, A.](https://biodesign.ucla.edu/accelerator21-bio-ashley-kita/), <b>Armouti, A.</b>
 
