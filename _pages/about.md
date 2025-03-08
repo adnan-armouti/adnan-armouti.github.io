@@ -27,13 +27,13 @@ Implicit Neural Models to Extract Heart Rate from Video.
 <br />
 <i>European Conference on Computer Vision (ECVA)</i>.
 <br />
-[Pradyumna Chari<sup>*</sup>](https://pradyumnachari.github.io/), [Anirudh B. H.](https://anirudh0707.github.io/), <b>Adnan Armouti*</b>, [Alexander Vilesov<sup>*</sup>](https://asvilesov.github.io/), Sanjit Sarda, [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), and [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/).
+[Pradyumna Chari<sup>*</sup>](https://pradyumnachari.github.io/), [Anirudh B. H.<sup>*</sup>](https://anirudh0707.github.io/), <b>Adnan Armouti</b>, [Alexander Vilesov<sup>*</sup>](https://asvilesov.github.io/), Sanjit Sarda, [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), and [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/).
 
 Thermal Imaging and Radar for Remote Sleep Monitoring of Breathing and Apnea.
 <br />
 <i>In submission to IEEE Transactions on Biomedical Engineering</i>.
 <br />
-Kai Del Regno, [Alexander Vilesov<sup>*</sup>](https://asvilesov.github.io/), <b>Adnan Armouti*</b>, [Anirudh B. H.](https://anirudh0707.github.io/), Selim Emir Can, [Ashley Kita](https://www.uclahealth.org/providers/ashley-kita), and [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/).
+Kai Del Regno, [Alexander Vilesov](https://asvilesov.github.io/), <b>Adnan Armouti</b>, [Anirudh B. H.](https://anirudh0707.github.io/), Selim Emir Can, [Ashley Kita](https://www.uclahealth.org/providers/ashley-kita), and [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/).
 
 Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography.
 <br />
