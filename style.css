@@ -336,18 +336,62 @@ a.record-title:hover { color: var(--mark); }
 /* --- Narrow ------------------------------------------------------------- */
 
 @media (max-width: 720px) {
-  body { padding: var(--s5) var(--s4) var(--s7); }
-  .masthead { grid-template-columns: minmax(0, 1fr); gap: var(--s5); }
-  .who { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--s4); align-items: center; }
-  .who h1 { margin: 0; }
-  .portrait { width: 96px; }
-  .who .contact { grid-column: 1 / -1; }
-  .topbar { grid-template-columns: 1fr auto; }
+  body { padding: var(--s5) var(--s5) var(--s7); }
+
+  /* Photo and name share a row; everything else stacks full width. The
+     wrappers dissolve so their children can be placed on one grid. */
+  .masthead {
+    grid-template-columns: 84px minmax(0, 1fr);
+    column-gap: var(--s4);
+    row-gap: var(--s4);
+    align-items: center;
+    margin-bottom: var(--s5);
+  }
+  .masthead > .prose, .masthead > .who { display: contents; }
+  .portrait { grid-column: 1; grid-row: 1; width: 84px; }
+  .masthead h1 { grid-column: 2; grid-row: 1; font-size: 26px; margin: 0; }
+  .masthead .role,
+  .masthead .prose p,
+  .masthead .contact { grid-column: 1 / -1; }
+  .prose .role { margin: 0; }
+  .contact { justify-content: flex-start; margin: 0; }
+
+  .topbar { grid-template-columns: 1fr auto; margin-bottom: var(--s4); }
   .nav { grid-column: 1; justify-content: flex-start; gap: var(--s5); }
-  .entry { grid-template-columns: minmax(0, 1fr); gap: var(--s3); padding: var(--s4); }
-  .entry-fig { max-width: 320px; }
-  .ledger { max-height: none; padding-right: 0; -webkit-mask-image: none; mask-image: none; }
-  .ledger-row { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+
+  /* Reset the desktop row/column pins, or the venue lands on top of the
+     title once the grid collapses to a single column. */
+  .entry {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    row-gap: var(--s3);
+    padding: var(--s4);
+  }
+  .entry-venue { grid-column: 1; grid-row: 1; }
+  .entry-fig   { grid-column: 1; grid-row: 2; width: 100%; max-width: 100%; }
+  .entry-body  { grid-column: 1; grid-row: 3; }
+
+  .record { padding: var(--s4); }
+  .rubric { gap: var(--s2); font-size: 11px; }
+  .rubric .more { font-size: 11px; }
+
+  .ledger-row { grid-template-columns: 76px minmax(0, 1fr); gap: var(--s3); }
+
+  .lede h1 { font-size: 24px; }
+}
+
+/* Comfortable hit areas on touch, without changing how the glyphs look. */
+@media (hover: none) and (pointer: coarse) {
+  .contact a, .mode {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact { gap: var(--s2); margin-left: -10px; }
+  .entry-links a { padding: 7px 12px; }
+  .nav a { padding: 6px 0 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
