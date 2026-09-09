@@ -1,0 +1,5 @@
+.DS_Store
+.claude/preview.log
+.claude/preview.pid
+.claude/settings.local.json
+tile-colours.png

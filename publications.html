@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📡</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="style.css">
+  <script>try{var m=localStorage.getItem("mode");if(m)document.documentElement.dataset.mode=m}catch(e){}</script>
+  <title>Publications &middot; Adnan Armouti</title>
+  <meta name="author" content="Adnan Armouti">
+  <meta name="description" content="Publications and patents by Adnan Armouti, CS PhD candidate at Cornell Tech.">
+</head>
+<body>
+
+  <div class="topbar">
+    <nav class="nav">
+      <a href="index.html">About</a>
+      <a href="publications.html" aria-current="page">Publications</a>
+      <a href="files/pdf/Adnan_Armouti_CV.pdf">CV</a>
+    </nav>
+    <button class="mode" id="mode" type="button" aria-label="Switch between light and dark mode" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg></button>
+  </div>
+
+  <div class="lede">
+    <h1>Publications</h1>
+    <p>
+      I develop <strong>physics-based generative systems for millimeter-wave radars</strong> to <strong>enable radio frequency perception</strong> and unlock capabilities beyond ordinary cameras. I work on differentiable rendering and foundation models for inverse problems in FMCW radar imaging, with applications in 3D vision, human-centric sensing and autonomous robotics. My work appears at <a href="https://mmwave-inverse-rendering.github.io/">ECCV</a>, <a href="http://visual.ee.ucla.edu/equi_pleth_camera_rf.htm/">SIGGRAPH</a> and <a href="https://tanvir9476.github.io/projects/mmfhe/">MobiCOM</a>.
+    </p>
+    <p class="aside">For a complete list, see <a href="https://scholar.google.com/citations?hl=en&amp;user=5CpT57IAAAAJ">Google Scholar</a>.</p>
+  </div>
+
+  <section id="papers">
+    <h2 class="rubric">Papers</h2>
+    <div class="worklist" id="worklist"></div>
+  </section>
+
+  <section id="patents">
+    <h2 class="rubric">Patents</h2>
+    <div class="recordlist" id="patentlist"></div>
+  </section>
+
+  <div class="colophon">&copy; 2026 Adnan Armouti</div>
+
+  <script src="work.js"></script>
+  <script>
+    paintWork('worklist');
+    paintPatents('patentlist');
+    wireMode('mode');
+  </script>
+</body>
+</html>
