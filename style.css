@@ -55,6 +55,9 @@
 /* --- Base --------------------------------------------------------------- */
 
 *, *::before, *::after { box-sizing: border-box; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; border-radius: 2px; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0 auto;
@@ -135,7 +138,7 @@ a { color: inherit; }
   color: var(--ink-2);
   transition: color var(--ease);
 }
-.nav-toggle:hover { color: var(--mark); }
+@media (hover: hover) { .nav-toggle:hover { color: var(--mark); } }
 .nav-toggle svg { width: 19px; height: 19px; display: block; }
 
 .nav a {
@@ -146,7 +149,7 @@ a { color: inherit; }
   border-bottom: 2px solid transparent;
   transition: color var(--ease), border-color var(--ease);
 }
-.nav a:hover { color: var(--ink); }
+@media (hover: hover) { .nav a:hover { color: var(--ink); } }
 .nav a[aria-current="page"] { color: var(--mark); border-bottom-color: var(--mark); }
 
 /* --- Prose + contact ---------------------------------------------------- */
@@ -168,7 +171,7 @@ a { color: inherit; }
   color: var(--ink-3);
   transition: color var(--ease);
 }
-.contact a:hover { color: var(--mark); }
+@media (hover: hover) { .contact a:hover { color: var(--mark); } }
 .contact svg { width: 17px; height: 17px; display: block; }
 
 /* Crescent while light, sun while dark — the glyph shows what you'd switch to. */
@@ -178,7 +181,7 @@ a { color: inherit; }
   color: var(--ink-3);
   transition: color var(--ease);
 }
-.mode:hover { color: var(--mark); }
+@media (hover: hover) { .mode:hover { color: var(--mark); } }
 .mode svg { width: 17px; height: 17px; display: block; }
 .mode .i-sun { display: none; }
 :root[data-mode="night"] .mode .i-sun  { display: block; }
@@ -251,9 +254,11 @@ section { margin-top: var(--s7); }
   box-shadow: var(--lift);
   transition: box-shadow var(--ease), transform var(--ease);
 }
-.entry:hover, .record:hover {
-  box-shadow: var(--lift-2);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .entry:hover, .record:hover {
+    box-shadow: var(--lift-2);
+    transform: translateY(-1px);
+  }
 }
 
 /* Left column stacks venue over figure; the body spans both rows so the
@@ -315,8 +320,10 @@ section { margin-top: var(--s7); }
   transition: background var(--ease), color var(--ease);
 }
 .entry-links a svg { width: 12px; height: 12px; flex: none; opacity: .75; }
-.entry-links a:hover { background: var(--mark); color: #fff; }
-.entry-links a:hover svg { opacity: 1; }
+@media (hover: hover) {
+  .entry-links a:hover { background: var(--mark); color: #fff; }
+  .entry-links a:hover svg { opacity: 1; }
+}
 
 .entry-fig {
   align-self: center;
@@ -443,7 +450,7 @@ a.record-title:hover { color: var(--mark); }
   .nav[data-open="true"] { display: flex; }
   .nav a {
     width: 100%;
-    padding: 9px 16px;
+    padding: 12px 18px;
     border-bottom: 0;
     font-size: 14px;
   }
@@ -463,6 +470,12 @@ a.record-title:hover { color: var(--mark); }
   .rubric .more { text-align: center; }
 }
 
+/* The inline nav only exists at 420px and up; scoping this stops it reaching
+   into the menu below that width and stripping its horizontal padding. */
+@media (hover: none) and (pointer: coarse) and (min-width: 420px) {
+  .nav a { padding: 6px 0 5px; }
+}
+
 /* Comfortable hit areas on touch, without changing how the glyphs look. */
 @media (hover: none) and (pointer: coarse) {
   .contact a, .mode {
@@ -476,7 +489,6 @@ a.record-title:hover { color: var(--mark); }
   .masthead .contact a { min-width: 28px; }
   .masthead .contact { gap: 0; margin-left: 0; }
   .entry-links a { padding: 7px 12px; }
-  .nav a { padding: 6px 0 5px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
