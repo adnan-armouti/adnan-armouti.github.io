@@ -124,7 +124,15 @@ a { color: inherit; }
   padding: 0 44px;
 }
 .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5); }
-.topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding-bottom: 7px; }
+.topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+
+/* Nav links carry a 3px pad plus a 2px underline, so their box centre sits
+   below their text centre. Lift the switch to match — but only where that
+   inline nav exists; below 420px it is a dropdown and the switch should
+   simply centre on the bar, level with the menu button. */
+@media (min-width: 420px) {
+  .topbar .mode { padding-bottom: 7px; }
+}
 .nav-toggle {
   display: none;
   position: absolute;
@@ -474,6 +482,9 @@ a.record-title:hover { color: var(--mark); }
    into the menu below that width and stripping its horizontal padding. */
 @media (hover: none) and (pointer: coarse) and (min-width: 420px) {
   .nav a { padding: 6px 0 5px; }
+  /* Those touch paddings move the links' text centre, so the switch needs a
+     smaller lift here than it does with the desktop paddings. */
+  .topbar .mode { padding-bottom: 3px; }
 }
 
 /* Comfortable hit areas on touch, without changing how the glyphs look. */
