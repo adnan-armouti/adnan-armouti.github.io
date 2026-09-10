@@ -198,6 +198,34 @@ function wireLedger(id) {
   sync();
 }
 
+/* --- Narrow-screen menu -------------------------------------------------- */
+
+// Below the phone breakpoint the nav collapses behind a menu button. Closes on
+// Escape, on a click outside, and on choosing a link.
+function wireMenu(btnId, navId) {
+  const btn = document.getElementById(btnId);
+  const nav = document.getElementById(navId);
+  if (!btn || !nav) return;
+
+  const setOpen = (open) => {
+    nav.dataset.open = String(open);
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  setOpen(false);
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setOpen(nav.dataset.open !== 'true');
+  });
+  nav.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  // Leaving the narrow band must not strand it open.
+  matchMedia('(min-width: 420px)').addEventListener('change', () => setOpen(false));
+}
+
 /* --- Day / night --------------------------------------------------------- */
 
 function wireMode(btnId) {

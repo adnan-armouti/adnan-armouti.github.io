@@ -16,7 +16,8 @@
 <body>
 
   <div class="topbar">
-    <nav class="nav">
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg></button>
+    <nav class="nav" id="site-nav">
       <a href="index.html" aria-current="page">About</a>
       <a href="publications.html">Publications</a>
       <a href="files/pdf/Adnan_Armouti_CV.pdf">CV</a>
@@ -72,6 +73,7 @@
   <script>
     paintWork('worklist', WORK.filter(w => w.featured));
     wireLedger('ledger');
+    wireMenu('nav-toggle', 'site-nav');
     wireMode('mode');
   </script>
 </body>

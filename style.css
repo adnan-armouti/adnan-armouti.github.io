@@ -122,6 +122,22 @@ a { color: inherit; }
 }
 .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5); }
 .topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding-bottom: 7px; }
+.nav-toggle {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--ink-2);
+  transition: color var(--ease);
+}
+.nav-toggle:hover { color: var(--mark); }
+.nav-toggle svg { width: 19px; height: 19px; display: block; }
+
 .nav a {
   font-size: 13.5px;
   color: var(--ink-2);
@@ -403,6 +419,35 @@ a.record-title:hover { color: var(--mark); }
   .who            { grid-column: 1; grid-row: 2; justify-self: center; }
   .masthead .role { grid-column: 1; grid-row: 3; }
   .masthead .prose p:not(.role) { grid-column: 1; grid-row: 4; margin: 0; }
+
+  /* Three links in a centred row cannot be guaranteed to fit once the theme
+     switch has its own reserved space, and wrapping them is worse than hiding
+     them. Below this width the nav becomes a menu. */
+  .nav-toggle { display: inline-flex; }
+  .topbar { justify-content: flex-end; }
+  .nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    z-index: 20;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    min-width: 168px;
+    padding: 6px 0;
+    background: var(--panel);
+    border-radius: var(--radius);
+    box-shadow: var(--lift-2);
+  }
+  .nav[data-open="true"] { display: flex; }
+  .nav a {
+    width: 100%;
+    padding: 9px 16px;
+    border-bottom: 0;
+    font-size: 14px;
+  }
+  .nav a[aria-current="page"] { border-bottom: 0; }
 
   /* "All publications" drops to its own line; the rule still closes the
      label above it. A rubric without a link is untouched. */
