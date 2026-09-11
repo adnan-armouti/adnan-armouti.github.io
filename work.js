@@ -8,7 +8,15 @@
      authors   "Plain Name, [Linked Name](url), **Adnan Armouti**"
      note      one sentence on the contribution, set in the caption voice
      honours   ["Oral", "Best Paper Finalist"] or omit
-     figure    path to a ~16:10 crop; add fit:'contain' to letterbox instead
+     figure    path to a ~1.19:1 crop (the desktop slot is 188x158); .mp4/.webm plays inline (muted, looped);
+               add fit:'contain' to letterbox instead
+     poster    still shown before/if the video does not play (video only)
+     clips     instead of figure: two { src, poster } clips. Desktop plays
+               them one after the other in the single slot; phones show them
+               side by side, governed by `pair`
+     pair      'alternate' — one plays while the other waits, faded, then swap
+               'together'  — both play at once, in step
+     A clip may carry dark: { src, poster } — used while the page is dark
      resources [{ label, href }] — rendered in RESOURCE_ORDER, rule-separated
      featured  true to also list it on the front page
    ========================================================================== */
@@ -16,12 +24,34 @@
 const WORK = [
   {
     featured: true,
+    venue: 'Preprint 2026',
+    title: '3D Point Splatting for mmWave Radar Novel View Synthesis',
+    href: 'https://arxiv.org/abs/2609.11894',
+    authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
+    note: 'A differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins through a precomputed point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
+    clips: [
+      { src: 'assets/projects/3dps/3dps_a_points.mp4', poster: 'assets/projects/3dps/3dps_a_points_poster.jpg' },
+      { src: 'assets/projects/3dps/3dps_b_ra.mp4',     poster: 'assets/projects/3dps/3dps_b_ra_poster.jpg' },
+    ],
+    pair: 'together',    // phones: side by side, both play in sync
+    resources: [
+      { label: 'paper', href: 'https://arxiv.org/abs/2609.11894' },
+    ],
+  },
+  {
+    featured: true,
     venue: 'ECCV 2026',
     title: 'mmIR: Frequency-Space Inverse Rendering for 3D Millimeter-Wave Radar ADC Synthesis',
     href: 'https://mmwave-inverse-rendering.github.io/',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
-    note: 'A differentiable FMCW radar inverse renderer that fits a physics-based forward model to real captures, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
-    figure: 'assets/projects/mmir/mmir_card_light.jpg',
+    note: 'An FMCW radar inverse renderer that fits a differentiable physics-based, ray tracing forward model to real captures, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
+    clips: [
+      { src: 'assets/projects/mmir/mmir_a_raytrace.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_poster.jpg',
+        dark: { src: 'assets/projects/mmir/mmir_a_raytrace_dark.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_dark_poster.jpg' } },
+      { src: 'assets/projects/mmir/mmir_b_dense.mp4',    poster: 'assets/projects/mmir/mmir_b_dense_poster.jpg',
+        dark: { src: 'assets/projects/mmir/mmir_b_dense_dark.mp4',    poster: 'assets/projects/mmir/mmir_b_dense_dark_poster.jpg' } },
+    ],
+    pair: 'alternate',   // phones: side by side, one plays while the other waits faded
     resources: [
       { label: 'project page', href: 'https://mmwave-inverse-rendering.github.io/' },
       { label: 'paper',        href: 'https://arxiv.org/abs/2608.28913' },
@@ -146,9 +176,23 @@ function resources(list) {
 
 function entry(w) {
   const fit = w.fit === 'contain' ? ' contain' : '';
-  const fig = w.figure
-    ? `<div class="entry-fig${fit}"><img src="${esc(w.figure)}" alt="" loading="lazy"></div>`
-    : '<div></div>';
+  const vid = (c, extra = '') => {
+    const d = c.dark || {};
+    return `<video data-src="${esc(c.src)}"${c.poster ? ` data-poster="${esc(c.poster)}"` : ''}`
+      + (d.src ? ` data-src-dark="${esc(d.src)}"` : '') + (d.poster ? ` data-poster-dark="${esc(d.poster)}"` : '')
+      + ` muted playsinline preload="metadata" aria-hidden="true"${extra}></video>`;
+  };
+  let fig;
+  if (w.clips && w.clips.length === 2) {
+    // Two clips. Loop is off: the pair controller decides what plays next.
+    fig = `<div class="entry-fig pair${fit}" data-pair="${esc(w.pair || 'alternate')}">${vid(w.clips[0])}${vid(w.clips[1])}</div>`;
+  } else if (w.figure && /\.(mp4|webm)$/i.test(w.figure)) {
+    fig = `<div class="entry-fig${fit}">${vid({ src: w.figure, poster: w.poster }, ' loop')}</div>`;
+  } else if (w.figure) {
+    fig = `<div class="entry-fig${fit}"><img src="${esc(w.figure)}" alt="" loading="lazy"></div>`;
+  } else {
+    fig = '<div></div>';
+  }
   return `<article class="entry">
   <span class="entry-venue">${esc(w.venue)}${honours(w.honours)}</span>
   ${fig}
@@ -174,7 +218,88 @@ function record(p) {
 
 function paint(id, items, build) {
   const host = document.getElementById(id);
-  if (host) host.innerHTML = items.map(build).join('');
+  if (!host) return;
+  host.innerHTML = items.map(build).join('');
+  watchVideos(host);
+}
+
+// Phones show a clip pair side by side; wider screens show one slot.
+const narrow = matchMedia('(max-width: 720px)');
+
+// Is the page currently dark? The switch sets data-mode; otherwise the OS decides.
+const isNight = () => {
+  const m = document.documentElement.dataset.mode;
+  return m ? m === 'night' : matchMedia('(prefers-color-scheme: dark)').matches;
+};
+
+// Point a video at the source for the current theme. Keeps position and play
+// state across the swap so a theme toggle mid-clip does not restart it.
+function applyTheme(v) {
+  const dark = isNight() && v.dataset.srcDark;
+  const src = dark ? v.dataset.srcDark : v.dataset.src;
+  const poster = dark ? (v.dataset.posterDark || v.dataset.poster) : v.dataset.poster;
+  if (v.getAttribute('src') === src) return;
+  const t = v.currentTime, playing = !v.paused;
+  if (poster) v.poster = poster;
+  v.src = src;
+  // Resume at the same point once the new file can play. Needs a server
+  // that honours Range requests (GitHub Pages does); on one that does not,
+  // the seek clamps to 0 and the clip simply restarts.
+  v.addEventListener('canplay', () => { v.currentTime = t; if (playing) v.play().catch(() => {}); }, { once: true });
+}
+function applyThemeAll() { document.querySelectorAll('.entry-fig video').forEach(applyTheme); }
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyThemeAll);
+
+// Drive every clip pair. On a wide screen the two play in turn in the one
+// slot. On a phone, 'alternate' plays one while the other waits faded and then
+// swaps; 'together' runs both in step. Single clips just loop. Everything is
+// paused while off screen so the page is not decoding video nobody can see.
+function watchVideos(root) {
+  root.querySelectorAll('.entry-fig video').forEach(applyTheme);
+  const pairs = root.querySelectorAll('.entry-fig.pair');
+  const singles = root.querySelectorAll('.entry-fig:not(.pair) video');
+
+  pairs.forEach((box) => {
+    const [a, b] = box.querySelectorAll('video');
+    const mode = box.dataset.pair;
+    let active = 0;
+    const show = (i) => {
+      box.dataset.active = String(i);
+      const vids = [a, b];
+      vids.forEach((v, k) => v.classList.toggle('is-active', k === i));
+    };
+    const play = (v) => { v.currentTime = 0; v.play().catch(() => {}); };
+    const together = () => mode === 'together' && narrow.matches;
+
+    const start = () => {
+      if (together()) { a.loop = b.loop = true; play(a); play(b); return; }
+      a.loop = b.loop = false;
+      show(active); play([a, b][active]);
+    };
+    const stop = () => { a.pause(); b.pause(); };
+
+    [a, b].forEach((v, k) => v.addEventListener('ended', () => {
+      if (together()) return;
+      active = 1 - k; show(active); play([a, b][active]);
+    }));
+    narrow.addEventListener('change', () => { stop(); if (box.dataset.visible === '1') start(); });
+
+    box._start = start; box._stop = stop;
+    show(0);
+  });
+
+  if (!('IntersectionObserver' in window)) { pairs.forEach((p) => p._start()); singles.forEach((v) => v.play().catch(() => {})); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }) => {
+      if (target.classList.contains('pair')) {
+        target.dataset.visible = isIntersecting ? '1' : '0';
+        if (isIntersecting) target._start(); else target._stop();
+      } else if (isIntersecting) target.play().catch(() => {});
+      else target.pause();
+    });
+  }, { threshold: 0.25 });
+  pairs.forEach((p) => io.observe(p));
+  singles.forEach((v) => io.observe(v));
 }
 
 const paintWork    = (id, items) => paint(id, items || WORK, entry);
@@ -238,5 +363,6 @@ function wireMode(btnId) {
       : matchMedia('(prefers-color-scheme: dark)').matches;
     root.dataset.mode = dark ? 'day' : 'night';
     try { localStorage.setItem('mode', root.dataset.mode); } catch (_) {}
+    applyThemeAll();
   });
 }

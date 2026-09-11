@@ -256,7 +256,7 @@ section { margin-top: var(--s7); }
 .worklist, .recordlist { display: grid; gap: var(--s4); }
 
 .entry, .record {
-  padding: var(--s4) var(--s5);
+  padding: var(--s3);           /* the same 12px on every side */
   background: var(--panel);
   border-radius: var(--radius);
   box-shadow: var(--lift);
@@ -275,7 +275,7 @@ section { margin-top: var(--s7); }
   display: grid;
   grid-template-columns: 188px minmax(0, 1fr);
   grid-template-rows: auto 1fr;
-  column-gap: var(--s5);
+  column-gap: var(--s4);          /* 16px: near the 12px frame, still breathes */
   row-gap: var(--s2);
 }
 .entry-venue { grid-column: 1; grid-row: 1; }
@@ -288,14 +288,14 @@ section { margin-top: var(--s7); }
   color: var(--mark);
 }
 .entry-title {
-  display: block; margin-bottom: 5px;
+  display: block; margin-bottom: 4px;
   font-size: 15px; font-weight: 600; line-height: 1.42;
   color: var(--ink); text-decoration: none;
   transition: color var(--ease);
 }
 .entry-title:hover { color: var(--mark); }
 
-.entry-authors { margin: 0 0 var(--s2); font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.entry-authors { margin: 0 0 6px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
 .entry-authors strong { font-weight: 600; color: var(--ink); }
 .entry-authors a {
   color: inherit;
@@ -305,7 +305,7 @@ section { margin-top: var(--s7); }
 .entry-authors a:hover { color: var(--mark); }
 
 /* Roman, not italic — a full sentence of italic fights legibility. */
-.entry-note { margin: 0 0 var(--s3); font-size: 13.5px; line-height: 1.55; color: var(--ink-3); }
+.entry-note { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
 
 .honour {
   display: inline-block; margin-left: var(--s2); padding: 1px 6px;
@@ -315,33 +315,51 @@ section { margin-top: var(--s7); }
   color: var(--mark); vertical-align: 1px;
 }
 
-.entry-links { display: flex; flex-wrap: wrap; gap: var(--s2); font-size: 12.5px; }
+.entry-links { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
 .entry-links a {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 10px;
+  padding: 4px 10px;
   background: var(--chip);
   border-radius: var(--radius-chip);
   color: var(--ink-2);
   text-decoration: none;
   transition: background var(--ease), color var(--ease);
 }
-.entry-links a svg { width: 12px; height: 12px; flex: none; opacity: .75; }
+.entry-links a svg {
+  width: 12px; height: 12px; flex: none; opacity: .75;
+  /* box-centring puts the glyph a hair above the lowercase label's optical
+     centre; drop it to sit on the x-height */
+  transform: translateY(1px);
+}
 @media (hover: hover) {
   .entry-links a:hover { background: var(--mark); color: #fff; }
   .entry-links a:hover svg { opacity: 1; }
 }
 
 .entry-fig {
-  align-self: center;
-  aspect-ratio: 16 / 10;
+  position: relative;
+  align-self: stretch;          /* fill the row: the space above and below was unused */
+  min-height: 0;
   border-radius: var(--radius);
   overflow: hidden;
   background: #fff;
 }
-.entry-fig img { width: 100%; height: 100%; object-fit: cover; }
-.entry-fig.contain img { object-fit: contain; }
+/* Media is taken out of flow so its intrinsic size can never grow the row;
+   the text column alone decides the tile height. */
+.entry-fig img, .entry-fig video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.entry-fig.contain img, .entry-fig.contain video { object-fit: contain; }
+
+/* A clip pair. Wide screens: the two share one slot and only the active one
+   shows, so they play in turn. Phones: side by side (see the phone band). */
+.entry-fig.pair { position: relative; }
+.entry-fig.pair video {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+.entry-fig.pair video.is-active { opacity: 1; }
 
 /* --- Patents ------------------------------------------------------------ */
 
@@ -411,6 +429,27 @@ a.record-title:hover { color: var(--mark); }
   .entry-venue { grid-column: 1; grid-row: 1; }
   .entry-fig   { grid-column: 1; grid-row: 2; width: 100%; max-width: 100%; aspect-ratio: 21 / 9; }
   .entry-body  { grid-column: 1; grid-row: 3; }
+
+  /* Pair: two 4:3 clips across the width. 'alternate' fades the waiting clip;
+     'together' keeps both fully visible. */
+  .entry-fig.pair {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s2);
+    background: none;
+    overflow: visible;
+  }
+  .entry-fig.pair video {
+    position: static;
+    width: 100%; height: auto;
+    aspect-ratio: 476 / 400;
+    border-radius: var(--radius);
+    background: #fff;
+    opacity: 1;
+  }
+  .entry-fig.pair[data-pair="alternate"] video:not(.is-active) { opacity: .28; }
 
   .record { padding: var(--s4); }
   .rubric { gap: var(--s2); font-size: 11px; }

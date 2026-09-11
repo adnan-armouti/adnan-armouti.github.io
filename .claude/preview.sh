@@ -13,7 +13,7 @@ running() { curl -s -o /dev/null -m 2 "http://127.0.0.1:$PORT/" 2>/dev/null; }
 
 STATUS="already running"
 if ! running; then
-  nohup python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$ROOT" >"$LOG" 2>&1 &
+  nohup python3 "$ROOT/.claude/preview_server.py" "$PORT" "$ROOT" >"$LOG" 2>&1 &
   echo $! > "$PIDFILE"
   for _ in 1 2 3 4 5 6 7 8 9 10; do running && break; sleep 0.3; done
   STATUS="started"
