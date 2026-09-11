@@ -10,6 +10,8 @@
      honours   ["Oral", "Best Paper Finalist"] or omit
      figure    path to a ~1.19:1 crop (the desktop slot is 188x158); .mp4/.webm plays inline (muted, looped);
                add fit:'contain' to letterbox instead
+     wide      optional 21:9 crop of the same figure for the phone band, where
+               the slot is a wide strip rather than the near-square desktop one
      poster    still shown before/if the video does not play (video only)
      clips     instead of figure: two { src, poster } clips. Desktop plays
                them one after the other in the single slot; phones show them
@@ -105,6 +107,7 @@ const WORK = [
     authors: '[Alexander Vilesov](https://asvilesov.github.io/)*, [Pradyumna Chari](https://pradyumnachari.github.io/)*, **Adnan Armouti***, [Anirudh Bindiganavale Harish](https://anirudhbharish.github.io/), Kimaya Kulkarni, Ananya Deoghare, [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/)',
     note: 'Fusing RGB video with 77 GHz radar for skin-tone-equitable remote plethysmography. Covered by UCLA Newsroom, Daily Bruin, and Forbes.',
     figure: 'assets/projects/equipleth/equipleth_card.jpg',
+    wide:   'assets/projects/equipleth/equipleth_wide.jpg',
     resources: [
       { label: 'project page', href: 'http://visual.ee.ucla.edu/equi_pleth_camera_rf.htm/' },
       { label: 'paper',        href: 'https://doi.org/10.1145/3528223.3530161' },
@@ -189,7 +192,10 @@ function entry(w) {
   } else if (w.figure && /\.(mp4|webm)$/i.test(w.figure)) {
     fig = `<div class="entry-fig${fit}">${vid({ src: w.figure, poster: w.poster }, ' loop')}</div>`;
   } else if (w.figure) {
-    fig = `<div class="entry-fig${fit}"><img src="${esc(w.figure)}" alt="" loading="lazy"></div>`;
+    const img = `<img src="${esc(w.figure)}" alt="" loading="lazy">`;
+    // Phones get the wide crop when there is one; the picture element swaps at the phone band.
+    fig = `<div class="entry-fig${fit}">${w.wide
+      ? `<picture><source media="(max-width: 720px)" srcset="${esc(w.wide)}">${img}</picture>` : img}</div>`;
   } else {
     fig = '<div></div>';
   }
