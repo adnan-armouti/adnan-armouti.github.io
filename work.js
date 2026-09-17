@@ -56,7 +56,7 @@ const WORK = [
     pair: 'alternate',   // phones: side by side, one plays while the other waits faded
     resources: [
       { label: 'project page', href: 'https://mmwave-inverse-rendering.github.io/' },
-      { label: 'paper',        href: 'https://arxiv.org/abs/2608.28913' },
+      { label: 'paper',        href: 'https://doi.org/10.1007/978-3-032-37359-5_9' },
       { label: 'video',        href: 'https://www.youtube.com/watch?v=UjcEwDx3bns' },
       { label: 'poster',       href: 'https://drive.google.com/file/d/1E5c7vM5N7udhou3jiCmoKmwWtcAGs6Rg/view?usp=sharing' },
     ],
