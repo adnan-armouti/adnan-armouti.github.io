@@ -26,7 +26,7 @@
 const WORK = [
   {
     featured: true,
-    venue: 'Preprint 2026',
+    venue: 'NeurIPS 2026',
     title: '3D Point Splatting for mmWave Radar Novel View Synthesis',
     href: 'https://arxiv.org/abs/2609.11894',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
@@ -251,7 +251,49 @@ function applyTheme(v) {
   // Resume at the same point once the new file can play. Needs a server
   // that honours Range requests (GitHub Pages does); on one that does not,
   // the seek clamps to 0 and the clip simply restarts.
-  v.addEventListener('canplay', () => { v.currentTime = t; if (playing) v.play().catch(() => {}); }, { once: true });
+  v.addEventListener('canplay', () => { seek(v, t); if (playing) playVideo(v); }, { once: true });
+}
+
+// Safari throws on a seek before the file has metadata, and it is the same
+// call that starts playback, so an unguarded rewind stops a clip from ever
+// playing. Both helpers below are therefore forgiving by design.
+function seek(v, t) { try { if (v.readyState >= 1) v.currentTime = t; } catch (_) {} }
+
+// Start a clip. iOS only honours play() on a muted inline video, and refuses
+// it altogether until the page has been touched (Low Power Mode, and Safari's
+// autoplay rules generally). A refusal therefore arms a one-shot retry on the
+// next touch anywhere on the page, which is why toggling the theme used to be
+// the only thing that got these running.
+function playVideo(v) {
+  v.muted = true;                       // iOS reads the property, not just the attribute
+  const p = v.play();
+  if (p && p.catch) p.catch(() => {
+    v.addEventListener('canplay', () => { v.play().catch(onGesture); }, { once: true });
+    onGesture();
+  });
+  // Safari can also decline without rejecting. If nothing is running a moment
+  // later, fall back to the same retry.
+  setTimeout(() => { if (v.paused && onScreen(v)) onGesture(); }, 1200);
+}
+const onScreen = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; };
+let armed = false;
+function onGesture() {
+  if (armed) return;
+  armed = true;
+  const go = () => {
+    armed = false;
+    ['touchstart', 'touchend', 'click'].forEach((e) => removeEventListener(e, go));
+    // Hand each figure back to its own controller, so a pair that takes turns
+    // resumes with one clip running rather than both at once.
+    document.querySelectorAll('.entry-fig').forEach((fig) => {
+      if (!onScreen(fig)) return;
+      if (fig._start) fig._start();
+      else fig.querySelectorAll('video').forEach(playVideo);
+    });
+  };
+  // touchstart first: playing inside the gesture handler itself is what Safari
+  // actually grants, and a scroll or a tap both begin with one.
+  ['touchstart', 'touchend', 'click'].forEach((e) => addEventListener(e, go, { once: true, passive: true }));
 }
 function applyThemeAll() { document.querySelectorAll('.entry-fig video').forEach(applyTheme); }
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyThemeAll);
@@ -274,7 +316,7 @@ function watchVideos(root) {
       const vids = [a, b];
       vids.forEach((v, k) => v.classList.toggle('is-active', k === i));
     };
-    const play = (v) => { v.currentTime = 0; v.play().catch(() => {}); };
+    const play = (v) => { seek(v, 0); playVideo(v); };
     const together = () => mode === 'together' && narrow.matches;
 
     const start = () => {
@@ -294,13 +336,13 @@ function watchVideos(root) {
     show(0);
   });
 
-  if (!('IntersectionObserver' in window)) { pairs.forEach((p) => p._start()); singles.forEach((v) => v.play().catch(() => {})); return; }
+  if (!('IntersectionObserver' in window)) { pairs.forEach((p) => p._start()); singles.forEach(playVideo); return; }
   const io = new IntersectionObserver((entries) => {
     entries.forEach(({ target, isIntersecting }) => {
       if (target.classList.contains('pair')) {
         target.dataset.visible = isIntersecting ? '1' : '0';
         if (isIntersecting) target._start(); else target._stop();
-      } else if (isIntersecting) target.play().catch(() => {});
+      } else if (isIntersecting) playVideo(target);
       else target.pause();
     });
   }, { threshold: 0.25 });
