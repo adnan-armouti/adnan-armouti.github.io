@@ -29,7 +29,7 @@ const WORK = [
     venue: 'NeurIPS 2026',
     title: '3D Point Splatting for mmWave Radar Novel View Synthesis',
     href: 'https://arxiv.org/abs/2609.11894',
-    authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
+    authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
     note: 'A differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins through a precomputed point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
     clips: [
       { src: 'assets/projects/3dps/3dps_a_points.mp4', poster: 'assets/projects/3dps/3dps_a_points_poster.jpg' },
@@ -45,7 +45,7 @@ const WORK = [
     venue: 'ECCV 2026',
     title: 'mmIR: Frequency-Space Inverse Rendering for 3D Millimeter-Wave Radar ADC Synthesis',
     href: 'https://mmwave-inverse-rendering.github.io/',
-    authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
+    authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
     note: 'An FMCW radar inverse renderer that fits a differentiable physics-based, ray tracing forward model to real captures, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
     clips: [
       { src: 'assets/projects/mmir/mmir_a_raytrace.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_poster.jpg',
@@ -65,7 +65,7 @@ const WORK = [
     venue: 'MobiCom 2026',
     title: 'mmFHE: mmWave Sensing with End-to-End Fully Homomorphic Encryption',
     href: 'https://tanvir9476.github.io/projects/mmfhe/',
-    authors: '[Tanvir Ahmed](https://tanvir9476.github.io), [Yixuan Gao](https://adamgao1996.github.io/), **Adnan Armouti**, [Rajalakshmi Nandakumar](https://infosci.cornell.edu/~rajalakshmi/)',
+    authors: '[Tanvir Ahmed](https://tanvir9476.github.io), [Yixuan Gao](https://adamgao1996.github.io/), **Adnan Armouti**, [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
     note: 'The first system to run an end-to-end mmWave radar sensing pipeline — signal processing and ML inference — entirely under fully homomorphic encryption on an untrusted cloud.',
     figure: 'assets/projects/mmfhe/mmfhe_card.jpg',
     resources: [
