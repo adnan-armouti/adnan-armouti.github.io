@@ -28,7 +28,7 @@ const WORK = [
     featured: true,
     venue: 'NeurIPS 2026',
     title: '3D Point Splatting for mmWave Radar Novel View Synthesis',
-    href: 'https://arxiv.org/abs/2609.11894',
+    href: 'https://3d-point-splatting.github.io/',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
     note: 'A differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins through a precomputed point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
     clips: [
@@ -37,7 +37,8 @@ const WORK = [
     ],
     pair: 'together',    // phones: side by side, both play in sync
     resources: [
-      { label: 'paper', href: 'https://arxiv.org/abs/2609.11894' },
+      { label: 'project page', href: 'https://3d-point-splatting.github.io/' },
+      { label: 'paper',        href: 'https://arxiv.org/abs/2609.11894' },
     ],
   },
   {
