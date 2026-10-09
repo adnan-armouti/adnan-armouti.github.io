@@ -321,8 +321,16 @@ function watchVideos(root) {
     let active = 0;
     const show = (i) => {
       box.dataset.active = String(i);
-      const vids = [a, b];
-      vids.forEach((v, k) => v.classList.toggle('is-active', k === i));
+      const vids = [a, b], out = vids[1 - i];
+      clearTimeout(box._leave);
+      // the finished clip stays visible beneath the incoming one for the
+      // length of its fade-in (see .is-leaving), then goes without a fade
+      if (out.classList.contains('is-active')) {
+        out.classList.add('is-leaving');
+        box._leave = setTimeout(() => out.classList.remove('is-leaving'), 260);
+      }
+      out.classList.remove('is-active');
+      vids[i].classList.remove('is-leaving'); vids[i].classList.add('is-active');
     };
     const play = (v) => { seek(v, 0); playVideo(v); };
     const together = () => mode === 'together' && narrow.matches;

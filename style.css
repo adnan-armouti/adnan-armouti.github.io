@@ -366,8 +366,14 @@ section { margin-top: var(--s7); }
   position: absolute; inset: 0;
   opacity: 0;
   transition: opacity 220ms ease;
+  z-index: 1;
 }
-.entry-fig.pair video.is-active { opacity: 1; }
+.entry-fig.pair video.is-active { opacity: 1; z-index: 2; }
+/* The clip that just finished stays fully visible beneath the incoming one
+   while that fades in on top (its last frame is the next clip's first), so
+   the switch never dips through the slot's background; then it is dropped
+   without a transition, already hidden. */
+.entry-fig.pair video.is-leaving { opacity: 1; transition: none; }
 
 /* --- Patents ------------------------------------------------------------ */
 
