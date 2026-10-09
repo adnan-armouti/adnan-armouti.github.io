@@ -32,10 +32,17 @@ const WORK = [
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
     note: 'A differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins through a precomputed point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
     clips: [
-      { src: 'assets/projects/3dps/3dps_a_points.mp4', poster: 'assets/projects/3dps/3dps_a_points_poster.jpg' },
-      { src: 'assets/projects/3dps/3dps_b_ra.mp4',     poster: 'assets/projects/3dps/3dps_b_ra_poster.jpg' },
+      // stage 1: the range-splatting sequence from the project page's teaser (points,
+      // every range shell, the trace they leave, the points snapped onto rings, the
+      // collapse to the range histogram); stage 2: the camera to bird's-eye, the
+      // points dropped onto the range-azimuth map, back to the scene. Stage 2 ends on
+      // the bare scene that stage 1 begins from, so the pair loops without a cut.
+      { src: 'assets/projects/3dps/3dps_a_splat_light.mp4', poster: 'assets/projects/3dps/3dps_a_splat_light_poster.jpg',
+        dark: { src: 'assets/projects/3dps/3dps_a_splat_dark.mp4', poster: 'assets/projects/3dps/3dps_a_splat_dark_poster.jpg' } },
+      { src: 'assets/projects/3dps/3dps_b_ramap_light.mp4', poster: 'assets/projects/3dps/3dps_b_ramap_light_poster.jpg',
+        dark: { src: 'assets/projects/3dps/3dps_b_ramap_dark.mp4', poster: 'assets/projects/3dps/3dps_b_ramap_dark_poster.jpg' } },
     ],
-    pair: 'together',    // phones: side by side, both play in sync
+    pair: 'alternate',   // phones: side by side, one plays while the other waits faded
     resources: [
       { label: 'project page', href: 'https://3d-point-splatting.github.io/' },
       { label: 'paper',        href: 'https://arxiv.org/abs/2609.11894' },
@@ -47,7 +54,7 @@ const WORK = [
     title: 'mmIR: Frequency-Space Inverse Rendering for 3D Millimeter-Wave Radar ADC Synthesis',
     href: 'https://mmwave-inverse-rendering.github.io/',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
-    note: 'An FMCW radar inverse renderer that fits a differentiable physics-based, ray tracing forward model to real captures, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
+    note: 'An FMCW radar inverse renderer that fits a differentiable, physics-based ray tracing forward model to real captures, recovering scene geometry and material, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
     clips: [
       { src: 'assets/projects/mmir/mmir_a_raytrace.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_poster.jpg',
         dark: { src: 'assets/projects/mmir/mmir_a_raytrace_dark.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_dark_poster.jpg' } },
