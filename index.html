@@ -37,9 +37,12 @@
       <p>
       I develop <strong>physics-based generative models for millimeter-wave radars</strong> to <strong>enable radio frequency perception</strong> and unlock capabilities beyond ordinary cameras. I work on differentiable rendering and foundation models for inverse problems in FMCW radar imaging, with applications in 3D vision, human-centric sensing and autonomous robotics. My work appears at <a href="https://arxiv.org/abs/2609.11894">NeurIPS</a>, <a href="https://mmwave-inverse-rendering.github.io/">ECCV</a>, and <a href="http://visual.ee.ucla.edu/equi_pleth_camera_rf.htm/">SIGGRAPH</a>, and is supported by an <a href="https://www.nvidia.com/en-us/industries/higher-education-research/academic-grant-program/">NVIDIA Academic Grant</a>.
       </p>
+      <p class="bio-toggle fold-toggle"><a class="more" id="more-bio-link" href="#more-bio">more about me &rarr;</a></p>
+      <div class="bio-fold fold" id="more-bio"><div class="fold-inner">
       <p class="bio-more">
       Previously, I completed my Bachelors and Masters at UCLA Electrical and Computer Engineering. During this time, I worked with <a href="https://www.ee.ucla.edu/achuta-kadambi/">Achuta Kadambi</a> on computational imaging and computer vision, supported by an <a href="https://www.nsf.gov/crssprgm/reu/">NSF REU Fellowship</a> and <a href="https://www.src.org/src/urpcall/">Intel SRC URP Scholarship</a>. I am a proud recipient of UCLA ECE's <a href="files/pdf/22_23_Distinguished_Thesis_Award.pdf">Distinguished Master's Thesis</a> and <a href="https://commencement.seas.ucla.edu/2023-awards/">Outstanding Master's Student</a> awards.
       </p>
+      </div></div>
     </div>
   </header>
 
@@ -79,8 +82,10 @@
   <script>
     paintSelectedWork('worklist');
     paintPatents('patentlist');
+    wireNotes('worklist');
     wireMoreWork('worklist', 'more-work');
     wireMoreNews('ledger', 'more-news-link');
+    wireMoreBio('more-bio', 'more-bio-link');
     wireMode('mode');
   </script>
 </body>

@@ -63,12 +63,19 @@ function resources(list) {
     const i = RESOURCE_ORDER.indexOf(r.label);
     return i < 0 ? RESOURCE_ORDER.length : i;
   };
+  const has = (l) => list.some((r) => r.label === l);
+  const onPhone = new Set(['project page', 'paper', has('code') ? 'code' : 'video']);
   return [...list]
     .sort((a, b) => rank(a) - rank(b))
-    .map((r) => `<a href="${esc(r.href)}">${glyph(r.label)}${esc(r.label)}</a>`)
+    .map((r) => `<a href="${esc(r.href)}"${onPhone.has(r.label) ? '' : ' class="on-wide"'}>`
+      // "project page" is just "project" on a phone, where the row is tight
+      + `${glyph(r.label)}${r.label === 'project page'
+          ? '<span class="on-wide">project page</span><span class="on-narrow">project</span>'
+          : esc(r.label)}</a>`)
     .join('');
 }
 
+let noteId = 0;
 function entry(w) {
   const fit = w.fit === 'contain' ? ' contain' : '';
   const vid = (c, extra = '') => {
@@ -96,8 +103,9 @@ function entry(w) {
   ${fig}
   <div class="entry-body">
     <a class="entry-title" href="${esc(w.href)}">${esc(w.title)}</a>
-    <p class="entry-authors">${byline(w.authors)}</p>
-    <p class="entry-note">${esc(w.note)}</p>
+    <p class="entry-authors"><span class="name-wide">${byline(w.authors)}</span><span class="name-narrow">${byline(w.authors, true)}</span></p>
+    <div class="note-fold fold" id="note-${++noteId}"><div class="fold-inner"><p class="entry-note">${esc(w.note)}</p></div></div>
+    <p class="note-toggle fold-toggle"><a class="more" href="#note-${noteId}">see more</a></p>
     <nav class="entry-links">${resources(w.resources)}</nav>
   </div>
 </article>`;
@@ -176,7 +184,8 @@ function wireMoreWork(listId, linkId) {
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
   }
 
-  discloser(link, drawers, host.querySelectorAll('.entry').length, (isOpen) => {
+  const count = host.querySelectorAll('.entry').length;
+  discloser(link, drawers, { shut: `show all (${count})`, open: 'show fewer' }, (isOpen) => {
     if (!swap) return;
     swap.classList.toggle('is-open', isOpen);
     swap.style.width = (isOpen ? wOpen : wShut) + 'px';
@@ -186,9 +195,8 @@ function wireMoreWork(listId, linkId) {
 
 // Replace a link with the control that opens a set of drawers. The label says
 // what clicking does; the count says how much is folded away.
-function discloser(link, drawers, total, after) {
-  const shut = `show all (${total})`;
-  const open = 'show fewer';
+function discloser(link, drawers, labels, after) {
+  const { shut, open } = labels;
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'more more-toggle';
@@ -211,6 +219,39 @@ function discloser(link, drawers, total, after) {
     btn.querySelector('span').textContent = isOpen ? open : shut;
     if (after) after(isOpen);
   });
+  return { btn, fold, isOpen: () => isOpen };
+}
+
+// A fold that only exists on a phone: there the screen fills before any of the
+// work appears, so secondary prose waits behind a control. At every other width
+// the control is hidden and the text simply sits in flow.
+const PHONE = matchMedia('(max-width: 459px)');
+
+function phoneFold(drawer, link, labels) {
+  if (!drawer || !link) return;
+  const ctl = discloser(link, [drawer], labels);
+  const sync = () => {
+    if (PHONE.matches) ctl.fold(ctl.isOpen());
+    else { drawer.classList.remove('is-open'); drawer.inert = false; }
+  };
+  PHONE.addEventListener('change', sync);
+  sync();
+}
+
+function wireMoreBio(drawerId, linkId) {
+  phoneFold(document.getElementById(drawerId), document.getElementById(linkId),
+            { shut: 'more about me', open: 'less' });
+}
+
+// Every tile's description folds the same way, so a phone shows title, byline
+// and links, and opens the prose on request.
+function wireNotes(listId) {
+  const host = document.getElementById(listId);
+  if (!host) return;
+  host.querySelectorAll('.note-fold').forEach((fold) => {
+    const link = host.querySelector(`.note-toggle a[href="#${fold.id}"]`);
+    phoneFold(fold, link, { shut: 'see more', open: 'see less' });
+  });
 }
 
 // The news list folds the same way. Without scripting every entry is simply
@@ -223,7 +264,8 @@ function wireMoreNews(listId, linkId) {
   if (!drawers.length) return;
   const mark = (isOpen) => list.classList.toggle('is-folded', !isOpen);
   mark(false);
-  discloser(link, drawers, list.querySelectorAll('.ledger-row').length, mark);
+  const count = list.querySelectorAll('.ledger-row').length;
+  discloser(link, drawers, { shut: `show all (${count})`, open: 'show fewer' }, mark);
 }
 
 // Phones show a clip pair side by side; wider screens show one slot.

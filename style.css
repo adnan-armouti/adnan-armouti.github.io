@@ -33,7 +33,8 @@
   --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
 
   --shell: 1008px;
-  --pad-top: 12px;                       /* the page's top gutter */        /* 960px of content + the 24px gutters, matching the project pages */
+  --pad-top: 20px;                       /* the page's top gutter: a shade under
+     the name's cap height, so the type does not crowd the window edge */        /* 960px of content + the 24px gutters, matching the project pages */
   --ease: 160ms cubic-bezier(.4, 0, .2, 1);
   --ease-slow: cubic-bezier(.33, 0, .16, 1);
 }
@@ -156,7 +157,11 @@ a { color: inherit; }
      on the page while making a collision impossible at any width or zoom. */
   padding: 0 44px;
 }
-.topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+/* A 17px mark beside 36px capitals: centring the two boxes leaves the glyph's
+   top edge 5px below the cap line, which reads as sagging. Lift it so the two
+   start together — the switch then also sits midway between the window edge
+   and the first line of content. */
+.topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(calc(-50% - 5px)); }
 
 
 /* --- Prose + contact ---------------------------------------------------- */
@@ -321,6 +326,64 @@ html:not(.js) .drawer { grid-template-rows: 1fr; }     /* no script: nothing fol
 .worklist > .drawer:not(.is-open) { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) {
   .drawer, .drawer-inner { transition: none; }
+}
+
+/* Phone-only folds: the bio's second paragraph and each tile's description are
+   ordinary flow at every other width, so the work starts nearer the top of a
+   phone screen without costing anything on a desktop. */
+.fold-toggle { display: none; }
+.fold, .fold > .fold-inner { display: block; }
+.name-narrow, .entry-links .on-narrow { display: none; }
+@media (max-width: 459px) {
+  html.js .fold-toggle { display: block; margin: 0; }
+  html.js .bio-toggle { text-align: center; }
+
+  /* The portrait is centred here, so the name centres over it. The switch keeps
+     its corner, and the name's size reserves room on both sides of the bar. */
+  .topbar h1 {
+    left: 0; right: 0;
+    text-align: center;
+    /* The obstacle is the switch's 17px mark, not its 40px target, so the name
+       only has to clear ~29px plus a little air on each side. */
+    font-size: clamp(20px, calc((100vw - 82px) / 6.9), 36px);
+    /* Centres, not tops: the name changes size here while the mark does not, and
+       two marks of different size read as level when their centres agree. */
+    transform: translateY(calc(-50% - 5px));
+  }
+  /* The switch moves out into the page gutter. Its 40px touch target centres a
+     17px glyph, so the box goes to the window edge to put the mark 12px in. */
+  .topbar .mode { right: calc(var(--s5) * -1); }
+  /* A link inside body copy, not a section label: carnelian and the body's
+     own size, with the same chevron the sections use. */
+  .fold-toggle .more-toggle { color: var(--mark); font-size: 13.5px; letter-spacing: 0; }
+  .note-toggle .more-toggle { font-size: 13px; }
+  html.js .fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 360ms var(--ease-slow);
+  }
+  html.js .fold.is-open { grid-template-rows: 1fr; }
+  html.js .fold > .fold-inner {
+    min-height: 0; overflow: hidden;
+    opacity: 0; transform: translateY(-4px);
+    transition: opacity 240ms var(--ease-slow), transform 240ms var(--ease-slow);
+  }
+  html.js .fold.is-open > .fold-inner { opacity: 1; transform: none; transition-delay: 90ms; }
+  /* The control reads as the next line of the text it opens: a line's worth of
+     space above it, a third of that below, before the links. */
+  html.js .note-fold > .fold-inner > .entry-note { margin-bottom: 0; }
+  html.js .note-toggle { margin-top: -7px; margin-bottom: 6px; text-align: center; }
+  html.js .note-fold.is-open + .note-toggle { margin-top: -1px; }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .fold, html.js .fold > .fold-inner { transition: none; }
+  }
+
+  /* Short bylines and a short chip row: a phone has no room for the rest. */
+  .name-wide { display: none; }
+  .name-narrow { display: inline; }
+  .entry-links a.on-wide,
+  .entry-links .on-wide { display: none; }   /* whole chips, and words in them */
+  .entry-links .on-narrow { display: inline; }
 }
 
 .entry, .record {
@@ -540,17 +603,24 @@ a.record-title:hover { color: var(--mark); }
   .masthead {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    row-gap: var(--s4);
+    row-gap: var(--s2);                  /* the identity lines sit close here */
+    margin-bottom: 0;                    /* the grid's own row gap is all that
+                                            remains before the first label */
   }
+  .masthead + section { margin-top: 0; }   /* the control sits right on the label */
   .masthead > .prose { display: contents; }
   /* The title line is centred with the name and the glyphs above it. */
   .masthead > .role { text-align: center; }
-  .masthead > .who { float: none; width: 156px; margin: 0;
+  .masthead > .who { float: none; width: 156px; margin: 0 0 var(--s2);
                      grid-column: 1; grid-row: 1; justify-self: center; }
   .masthead > .role    { grid-column: 1; grid-row: 2; margin: 0; }
   .masthead .committee { grid-column: 1; grid-row: 3; margin: 0; }
-  .masthead .prose p:not(.role):not(.bio-more) { grid-column: 1; grid-row: 4; margin: 0; }
-  .masthead .prose p.bio-more { grid-column: 1; grid-row: 5; margin: var(--s3) 0 0; }
+  /* .prose dissolves here, so every one of its children is placed by hand.
+     The control and the fold each take their own row; the generic paragraph
+     rule must not claim them. */
+  .masthead .prose > p:not(.role):not(.bio-toggle) { grid-column: 1; grid-row: 4; margin: 0; }
+  .masthead .bio-toggle { grid-column: 1; grid-row: 5; }
+  .masthead .bio-fold   { grid-column: 1; grid-row: 6; }
 
   .rubric { gap: var(--s2); }
 
