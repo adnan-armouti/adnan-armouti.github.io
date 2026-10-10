@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="style.css">
-  <script>try{var m=localStorage.getItem("mode");if(m)document.documentElement.dataset.mode=m}catch(e){}</script>
+  <script>document.documentElement.classList.add("js");try{var m=localStorage.getItem("mode");if(m)document.documentElement.dataset.mode=m}catch(e){}</script>
   <title>Adnan Armouti</title>
   <meta name="author" content="Adnan Armouti">
   <meta name="description" content="CS PhD candidate at Cornell Tech building physics-based generative systems for millimeter-wave radar.">
@@ -60,7 +60,7 @@
       <div class="ledger-row"><div class="ledger-when">Aug 2026</div><div class="ledger-what">Advanced to PhD candidacy.</div></div>
       <div class="ledger-row"><div class="ledger-when">Jul 2026</div><div class="ledger-what"><a href="https://tanvir9476.github.io/projects/mmfhe/">mmFHE</a> accepted to MobiCom 2026.</div></div>
       <div class="ledger-row"><div class="ledger-when">Jun 2026</div><div class="ledger-what"><a href="https://mmwave-inverse-rendering.github.io/">mmIR</a> accepted to ECCV 2026.</div></div>
-      <div class="drawer is-open" id="more-news"><div class="drawer-inner">
+      <div class="drawer" id="more-news"><div class="drawer-inner">
         <div class="ledger-row"><div class="ledger-when">Jun 2026</div><div class="ledger-what">NVIDIA Academic Grant proposal accepted.</div></div>
         <div class="ledger-row"><div class="ledger-when">Jul 2024</div><div class="ledger-what">Paper accepted to <a href="https://implicitppg.github.io/">ECCV 2024</a>.</div></div>
         <div class="ledger-row"><div class="ledger-when">Jun 2023</div><div class="ledger-what">Received UCLA ECE's Distinguished MS Thesis and Outstanding MS Student awards.</div></div>
@@ -74,6 +74,7 @@
 
   <div class="colophon">&copy; 2026 Adnan Armouti</div>
 
+  <script src="content.js"></script>
   <script src="work.js"></script>
   <script>
     paintSelectedWork('worklist');
