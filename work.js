@@ -30,7 +30,7 @@ const WORK = [
     title: '3D Point Splatting for mmWave Radar Novel View Synthesis',
     href: 'https://3d-point-splatting.github.io/',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
-    note: 'A differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins through a precomputed point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
+    note: 'The first differentiable point renderer for radar: oriented, material-aware 3D points are splatted into range bins via a point spread function, yielding complex-valued ADC, range profiles and range-azimuth maps from one model.',
     clips: [
       // stage 1: the range-splatting sequence from the project page's teaser (points,
       // every range shell, the trace they leave, the points snapped onto rings, the
@@ -54,7 +54,7 @@ const WORK = [
     title: 'mmIR: Frequency-Space Inverse Rendering for 3D Millimeter-Wave Radar ADC Synthesis',
     href: 'https://mmwave-inverse-rendering.github.io/',
     authors: '**Adnan Armouti**, [Yixuan Gao](https://adamgao1996.github.io/), [Rajalakshmi Nandakumar](https://rajalakshminandakumar.com/)',
-    note: 'An FMCW radar inverse renderer that fits a differentiable, physics-based ray tracing forward model to real captures, recovering scene geometry and material, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
+    note: 'The first FMCW radar inverse renderer that fits a differentiable, physics-based ray tracing forward model to real captures, then re-renders from dense virtual apertures to synthesise high-resolution 3D radar data.',
     clips: [
       { src: 'assets/projects/mmir/mmir_a_raytrace.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_poster.jpg',
         dark: { src: 'assets/projects/mmir/mmir_a_raytrace_dark.mp4', poster: 'assets/projects/mmir/mmir_a_raytrace_dark_poster.jpg' } },
@@ -86,7 +86,7 @@ const WORK = [
     title: 'Implicit Neural Models to Extract Heart Rate from Video',
     href: 'https://implicitppg.github.io/',
     authors: '[Pradyumna Chari](https://pradyumnachari.github.io/)*, [Anirudh Bindiganavale Harish](https://anirudhbharish.github.io/)*, **Adnan Armouti**, [Alexander Vilesov](https://asvilesov.github.io/), [Sanjit Sarda](https://sanjit1.github.io/), [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/)',
-    note: 'An implicit neural representation that decomposes face video into a blood plethysmograph component and an appearance component, improving heart-rate recovery on out-of-distribution subjects.',
+    note: 'The first implicit decomposition of face video into blood and appearance, state of the art for out of distribution.',
     figure: 'assets/projects/implicit-ppg/implicitppg_card.jpg',
     fit: 'contain',
     resources: [
@@ -100,7 +100,7 @@ const WORK = [
     title: 'Thermal Imaging and Radar for Remote Sleep Monitoring of Breathing and Apnea',
     href: 'https://arxiv.org/abs/2407.11936',
     authors: 'Kai Del Regno, [Alexander Vilesov](https://asvilesov.github.io/), **Adnan Armouti**, [Anirudh Bindiganavale Harish](https://anirudhbharish.github.io/), Selim Emir Can, [Ashley Kita](https://www.uclahealth.org/providers/ashley-kita), [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/)',
-    note: 'The first comparison of radar and thermal imaging for non-contact sleep monitoring, with a multimodal method to distinguish obstructive from central sleep apneas.',
+    note: 'Radar and thermal imaging compared for non-contact sleep apnea monitoring, with a multimodal method.',
     figure: 'assets/projects/sleep-apnea/apnea_card.jpg',
     resources: [
       { label: 'paper', href: 'https://arxiv.org/abs/2407.11936' },
@@ -113,7 +113,7 @@ const WORK = [
     title: 'Blending Camera and 77 GHz Radar Sensing for Equitable, Robust Plethysmography',
     href: 'http://visual.ee.ucla.edu/equi_pleth_camera_rf.htm/',
     authors: '[Alexander Vilesov](https://asvilesov.github.io/)*, [Pradyumna Chari](https://pradyumnachari.github.io/)*, **Adnan Armouti***, [Anirudh Bindiganavale Harish](https://anirudhbharish.github.io/), Kimaya Kulkarni, Ananya Deoghare, [Laleh Jalilian](https://www.uclahealth.org/providers/laleh-jalilian), [Achuta Kadambi](https://www.ee.ucla.edu/achuta-kadambi/)',
-    note: 'Fusing RGB video with 77 GHz radar for skin-tone-equitable remote plethysmography. Covered by UCLA Newsroom, Daily Bruin, and Forbes.',
+    note: 'The first camera-radar fusion for skin-tone-equitable remote plethysmography.',
     figure: 'assets/projects/equipleth/equipleth_card.jpg',
     wide:   'assets/projects/equipleth/equipleth_wide.jpg',
     resources: [
@@ -162,10 +162,29 @@ const esc = (v) => String(v).replace(/[&<>"]/g, (c) =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
 // "[Name](url)" becomes a link, "**Name**" becomes bold. Everything else is escaped.
-function byline(src) {
-  return esc(src)
+function byline(src, initials) {
+  const text = initials ? src.split(', ').map(shorten).join(', ') : src;
+  return esc(text)
     .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2">$1</a>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
+const PARTICLES = new Set(['de', 'del', 'della', 'di', 'da', 'dos', 'van', 'von', 'der',
+  'den', 'ter', 'la', 'le', 'du', 'bin', 'ibn', 'al', 'el', 'st', 'mac', 'mc']);
+
+// Patent bylines run long, so they take the citation form: given names to
+// initials, surname in full. Markdown around a name is left intact.
+function shorten(token) {
+  return token.replace(/^(\[|\*\*)?(.+?)(\]\(.+?\)|\*\*)?$/, (all, open, name, close) => {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length < 2) return all;
+    let last = parts.pop();
+    // Keep a surname particle with the surname: Kai Del Regno -> K. Del Regno.
+    while (parts.length > 1 && PARTICLES.has(parts[parts.length - 1].toLowerCase())) {
+      last = parts.pop() + '\u00a0' + last;
+    }
+    return (open || '') + parts.map((w) => w[0].toUpperCase() + '.').join('\u00a0') + '\u00a0' + last + (close || '');
+  });
 }
 
 function honours(list) {
@@ -226,7 +245,7 @@ function record(p) {
   return `<article class="record">
   <span class="record-no">${esc(p.number)}</span>
   ${head}
-  <p class="entry-authors">${byline(p.authors)}</p>
+  <p class="entry-authors">${byline(p.authors, true)}</p>
 </article>`;
 }
 
@@ -235,6 +254,112 @@ function paint(id, items, build) {
   if (!host) return;
   host.innerHTML = items.map(build).join('');
   watchVideos(host);
+}
+
+// The front page paints every entry in date order and folds the ones outside
+// the selected few into collapsed drawers, each sitting at the date where its
+// tiles belong. Opening them therefore grows the list in place: the later
+// entries slide down to make room rather than being appended after them.
+function paintSelected(id, items, build) {
+  const host = document.getElementById(id);
+  if (!host) return;
+  const list = items || WORK;
+  let html = '', run = [], n = 0;
+  const flush = () => {
+    if (!run.length) return;
+    html += `<div class="drawer" id="more-list-${++n}" hidden><div class="drawer-inner">${run.map(build).join('')}</div></div>`;
+    run = [];
+  };
+  for (const w of list) {
+    if (w.featured) { flush(); html += build(w); } else run.push(w);
+  }
+  flush();
+  host.innerHTML = html;
+  watchVideos(host);
+}
+
+/* --- The rest of the work, in place -------------------------------------- */
+
+// Without scripting, the section is a plain heading beside a link to the
+// publications page. With it, the heading itself becomes the control: one
+// affordance in the space the section label already occupies, with a chevron
+// that turns as the drawers open.
+const CHEVRON = '<svg class="caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+
+function wireMoreWork(listId, linkId) {
+  const host = document.getElementById(listId);
+  const link = document.getElementById(linkId);
+  if (!host) return;
+  const drawers = [...host.querySelectorAll('.drawer')];
+  if (!drawers.length) return;
+  const rubric = link ? link.closest('.rubric') : null;
+  if (!rubric) return;
+
+  // The heading says which set you are looking at, swapping its first word as
+  // the list grows: the two words trade places in a box that resizes between
+  // their widths, so "Papers" slides across and the rule takes up the slack.
+  const name = rubric.querySelector('.section-name');
+  let swap = null, wShut = 0, wOpen = 0;
+  if (name) {
+    name.innerHTML = '<span class="swap"><span class="w w-shut">Selected</span>'
+                   + '<span class="w w-open">All</span></span> Papers';
+    swap = name.querySelector('.swap');
+    const voice = () => {                              // only the live word is read out
+      swap.querySelector('.w-shut').setAttribute('aria-hidden', String(swap.classList.contains('is-open')));
+      swap.querySelector('.w-open').setAttribute('aria-hidden', String(!swap.classList.contains('is-open')));
+    };
+    swap.voice = voice; voice();
+    const measure = () => {
+      wShut = Math.ceil(swap.querySelector('.w-shut').getBoundingClientRect().width);
+      wOpen = Math.ceil(swap.querySelector('.w-open').getBoundingClientRect().width);
+      swap.style.width = (swap.classList.contains('is-open') ? wOpen : wShut) + 'px';
+    };
+    measure();
+    addEventListener('resize', measure);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  }
+
+  discloser(link, drawers, host.querySelectorAll('.entry').length, (isOpen) => {
+    if (!swap) return;
+    swap.classList.toggle('is-open', isOpen);
+    swap.style.width = (isOpen ? wOpen : wShut) + 'px';
+    swap.voice();
+  });
+}
+
+// Replace a link with the control that opens a set of drawers. The label says
+// what clicking does; the count says how much is folded away.
+function discloser(link, drawers, total, after) {
+  const shut = `show all (${total})`;
+  const open = 'show fewer';
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'more more-toggle';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', drawers.map((d) => d.id).join(' '));
+  btn.innerHTML = `<span>${shut}</span>${CHEVRON}`;
+  link.replaceWith(btn);
+  drawers.forEach((d) => { d.hidden = false; d.classList.remove('is-open'); });
+
+  let isOpen = false;
+  btn.addEventListener('click', () => {
+    isOpen = !isOpen;
+    drawers.forEach((d) => d.classList.toggle('is-open', isOpen));
+    btn.setAttribute('aria-expanded', String(isOpen));
+    btn.querySelector('span').textContent = isOpen ? open : shut;
+    if (after) after(isOpen);
+  });
+}
+
+// The news list folds the same way. Without scripting every entry is simply
+// listed, so the drawer here starts open and the script collapses it.
+function wireMoreNews(listId, linkId) {
+  const list = document.getElementById(listId);
+  const link = document.getElementById(linkId);
+  if (!list || !link) return;
+  const drawers = [...list.querySelectorAll('.drawer')];
+  if (!drawers.length) return;
+  discloser(link, drawers, list.querySelectorAll('.ledger-row').length);
 }
 
 // Phones show a clip pair side by side; wider screens show one slot.
@@ -367,53 +492,10 @@ function watchVideos(root) {
 }
 
 const paintWork    = (id, items) => paint(id, items || WORK, entry);
+const paintSelectedWork = (id, items) => paintSelected(id, items, entry);
 const paintPatents = (id, items) => paint(id, items || PATENTS, record);
 
-/* --- Scrolling ledger ---------------------------------------------------- */
 
-// The news list fades at its bottom edge to signal more below. Lift the fade
-// once the end is reached, and skip it entirely when nothing overflows.
-function wireLedger(id) {
-  const list = document.getElementById(id);
-  if (!list) return;
-  const sync = () => {
-    const overflows = list.scrollHeight > list.clientHeight + 1;
-    list.classList.toggle('no-overflow', !overflows);
-    list.classList.toggle('at-end',
-      overflows && list.scrollTop + list.clientHeight >= list.scrollHeight - 1);
-  };
-  list.addEventListener('scroll', sync, { passive: true });
-  addEventListener('resize', sync);
-  sync();
-}
-
-/* --- Narrow-screen menu -------------------------------------------------- */
-
-// Below the phone breakpoint the nav collapses behind a menu button. Closes on
-// Escape, on a click outside, and on choosing a link.
-function wireMenu(btnId, navId) {
-  const btn = document.getElementById(btnId);
-  const nav = document.getElementById(navId);
-  if (!btn || !nav) return;
-
-  const setOpen = (open) => {
-    nav.dataset.open = String(open);
-    btn.setAttribute('aria-expanded', String(open));
-  };
-  setOpen(false);
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    setOpen(nav.dataset.open !== 'true');
-  });
-  nav.addEventListener('click', (e) => { if (e.target.closest('a')) setOpen(false); });
-  document.addEventListener('click', (e) => {
-    if (!nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
-  });
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-  // Leaving the narrow band must not strand it open.
-  matchMedia('(min-width: 420px)').addEventListener('change', () => setOpen(false));
-}
 
 /* --- Day / night --------------------------------------------------------- */
 

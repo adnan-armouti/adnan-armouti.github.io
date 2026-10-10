@@ -27,8 +27,10 @@
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
   --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
 
-  --shell: 1008px;        /* 960px of content + the 24px gutters, matching the project pages */
+  --shell: 1008px;
+  --pad-top: 12px;                       /* the page's top gutter */        /* 960px of content + the 24px gutters, matching the project pages */
   --ease: 160ms cubic-bezier(.4, 0, .2, 1);
+  --ease-slow: cubic-bezier(.33, 0, .16, 1);
 }
 
 :root[data-mode="night"] {
@@ -60,9 +62,10 @@ a, button { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; border-radius: 2px; }
 html { scroll-behavior: smooth; }
 body {
+  position: relative;
   margin: 0 auto;
   max-width: var(--shell);
-  padding: var(--s5) var(--s5) var(--s8);
+  padding: var(--pad-top) var(--s5) var(--s6);
   background: var(--paper);
   color: var(--ink);
   font: 400 15px/1.62 var(--sans);
@@ -72,7 +75,7 @@ img { display: block; max-width: 100%; }
 
 /* One link treatment for running text, used everywhere prose appears. */
 a { color: inherit; }
-.prose a, .bio-more a, .ledger-what a, .lede a {
+.prose a, .bio-more a, .ledger-what a, .lede a, .masthead > .role a {
   color: var(--mark);
   font-weight: 500;
   text-decoration: none;
@@ -89,19 +92,21 @@ a { color: inherit; }
 
 /* Identity sits beside the bio rather than above it: the bio's natural
    measure left the right half of the page empty and pushed the work down. */
-.masthead {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 218px;   /* the portrait column, sized so
-     the glyph row and the bio's first paragraph end level and the second
-     paragraph starts clear of both */
-  column-gap: var(--s6);
-  row-gap: var(--s4);
-  align-items: start;
-  margin-bottom: var(--s6);
+/* Name and title sit above the portrait; the committee line starts level with
+   its top edge, and the bio runs beside it. The portrait column is sized so
+   the glyph row and the last line of the bio finish together. */
+/* Wide screens float the portrait: the identity lines start level with its top
+   edge, the bio runs beside it, and the rest of the bio wraps back underneath
+   the glyph row. Phones switch to the grid further down. */
+.masthead { margin-bottom: var(--s6); }
+.masthead > .who {
+  float: right;
+  width: min(206px, 30%);                /* sized so the text resumes half a line
+                                            under the glyph row, not a full one */
+  margin: 0 0 var(--s3) var(--s6);       /* clear space under the glyphs */
 }
-/* The second bio paragraph is a masthead child rather than part of .prose, so
-   it runs the full measure beneath the portrait and its glyphs. */
-.bio-more { grid-column: 1 / -1; margin: 0; color: var(--ink-2); }
+.masthead::after { content: ""; display: table; clear: both; }
+.bio-more { margin: 0; color: var(--ink-2); }
 
 .portrait {
   width: 100%;
@@ -110,8 +115,24 @@ a { color: inherit; }
   object-fit: cover;
   border-radius: 4px;
 }
-.masthead h1 { margin: 0 0 var(--s3); font-size: 36px; font-weight: 600; letter-spacing: -.025em; line-height: 1.12; }
-.prose .role, .lede .role { margin: 0 0 12px; font-size: 13.5px; font-style: italic; line-height: 1.6; color: var(--ink-2); }
+/* The bar holds the name and the theme switch, one at each end. The name is
+   out of flow so it can overhang the bar's height, and sized fluidly so it
+   always clears the switch, down to the narrowest phone. */
+.topbar h1, .topbar .brand {
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: clamp(16px, calc((100vw - 104px) / 7.1), 36px);
+  /* the divisor is the name's width per 1px of type, so the box can never
+     reach the switch: full size down to ~345px, then it tracks the room left */
+  font-weight: 600; letter-spacing: -.025em; line-height: 1.12;
+}
+.topbar .brand { color: var(--ink); text-decoration: none; }
+.topbar .brand:hover { color: var(--mark); }
+.prose .role, .masthead > .role, .lede .role { margin: 0 0 12px; font-size: 13.5px; font-style: italic; line-height: 1.6; color: var(--ink-2); }
+/* The title line sits close under the name; the committee line and the
+   portrait's top edge follow right after it. */
+.masthead > p.role { margin-bottom: 3px; }
 .role a { color: var(--mark); font-weight: 500; text-decoration: none; }
 .role a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
@@ -123,13 +144,13 @@ a { color: inherit; }
   justify-content: center;
   align-items: center;
   min-height: 28px;
-  margin-bottom: var(--s5);
+  margin-bottom: 9px;                    /* the lifted name overhangs the bar, so
+                                            this is the gap under the name itself */
   /* The switch is out of flow, so the centred nav would otherwise grow
      underneath it. Reserving its width on BOTH sides keeps the nav centred
      on the page while making a collision impossible at any width or zoom. */
   padding: 0 44px;
 }
-.nav { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5); }
 .topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
 
 /* Nav links carry a 3px pad plus a 2px underline, so their box centre sits
@@ -139,32 +160,7 @@ a { color: inherit; }
 @media (min-width: 420px) {
   .topbar .mode { padding-bottom: 7px; }
 }
-.nav-toggle {
-  display: none;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  color: var(--ink-2);
-  transition: color var(--ease);
-}
-@media (hover: hover) { .nav-toggle:hover { color: var(--mark); } }
-.nav-toggle svg { width: 19px; height: 19px; display: block; }
 
-.nav a {
-  font-size: 13.5px;
-  color: var(--ink-2);
-  text-decoration: none;
-  padding-bottom: 3px;
-  border-bottom: 2px solid transparent;
-  transition: color var(--ease), border-color var(--ease);
-}
-@media (hover: hover) { .nav a:hover { color: var(--ink); } }
-.nav a[aria-current="page"] { color: var(--mark); border-bottom-color: var(--mark); }
 
 /* --- Prose + contact ---------------------------------------------------- */
 
@@ -187,6 +183,15 @@ a { color: inherit; }
 }
 @media (hover: hover) { .contact a:hover { color: var(--mark); } }
 .contact svg { width: 17px; height: 17px; display: block; }
+.contact .cv {
+  color: var(--mark);
+  font-size: 16px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em; line-height: 1;
+  text-decoration: none;
+  transform: translateY(1px);            /* optically centred on the glyphs */
+}
+.contact .cv:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* Crescent while light, sun while dark — the glyph shows what you'd switch to. */
 .mode {
@@ -211,7 +216,7 @@ section { margin-top: var(--s7); }
 .masthead + section { margin-top: var(--s6); }
 
 .rubric {
-  display: flex; align-items: center; gap: var(--s3);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); row-gap: 6px;
   margin: 0 0 var(--s5);
   font-size: 12px; font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase;
@@ -221,6 +226,8 @@ section { margin-top: var(--s7); }
 .rubric::after  { content: ""; flex: 1; height: 1px; background: var(--rule); }
 .rubric .more {
   order: 1;                 /* sits after the rule, hard against the right */
+  margin-inline: auto;      /* no effect on the heading line, where the rule
+                               takes the slack; centres it once it wraps */
   font-weight: 500; letter-spacing: .06em;
   color: var(--mark); text-decoration: none;
   transition: opacity var(--ease);
@@ -228,20 +235,50 @@ section { margin-top: var(--s7); }
 }
 .rubric .more:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
 
+/* The section's first word trades places as the list grows. Both words share
+   one grid cell so they can cross-fade in place, and the box animates between
+   their widths so the rest of the heading and the rule follow along. */
+.swap {
+  display: inline-grid; justify-items: start;
+  overflow: hidden; vertical-align: bottom;
+  transition: width 320ms var(--ease-slow);
+}
+.swap .w {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition: opacity 200ms var(--ease-slow), transform 260ms var(--ease-slow);
+}
+.swap .w-open { opacity: 0; transform: translateX(-.35em); }
+.swap.is-open .w-shut { opacity: 0; transform: translateX(.35em); }
+.swap.is-open .w-open { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .swap, .swap .w { transition: none; }
+}
+
+/* One control, at the end of the rule where the link used to sit. Its label is
+   what clicking does, so the chevron only has to show which way the list moves. */
+.more-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin: 0; padding: 0;
+  border: 0; background: none; cursor: pointer;
+  font: inherit; letter-spacing: .06em; text-transform: inherit;
+}
+.more-toggle .caret {
+  width: 12px; height: 12px;
+  transition: transform 300ms var(--ease-slow);
+}
+.more-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+@media (hover: hover) { .more-toggle:hover span { text-decoration: underline; text-underline-offset: 3px; } }
+@media (prefers-reduced-motion: reduce) { .more-toggle .caret { transition: none; } }
+
 /* --- News: a short scrolling ledger ------------------------------------- */
 
-.ledger {
-  max-height: 176px;
-  overflow-y: auto;
-  padding-right: var(--s3);
-  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-          mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
-  transition: mask-image .15s linear;
-}
-/* Lift the fade at the end of the list, so the last entry stays readable. */
-.ledger.at-end, .ledger.no-overflow { -webkit-mask-image: none; mask-image: none; }
-.ledger::-webkit-scrollbar { width: 5px; }
-.ledger::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 3px; }
+/* The ledger shows its most recent entries and folds the rest into a drawer,
+   the same disclosure the papers use. Rows carry their own rule, so the
+   drawer's inner box drops the grid gap the tiles want. */
+.ledger .drawer-inner { display: block; }
+.ledger .drawer-inner .ledger-row:last-child { border-bottom: 0; }
+.ledger:has(.drawer:not(.is-open)) > .ledger-row:last-of-type { border-bottom: 0; }
 
 .ledger-row {
   display: grid;
@@ -251,7 +288,7 @@ section { margin-top: var(--s7); }
   border-bottom: 1px dashed var(--rule);
   font-size: 14px;
 }
-.ledger-row:first-child { padding-top: 0; }
+.ledger > .ledger-row:first-child { padding-top: 0; }
 .ledger-row:last-child { border-bottom: 0; }
 .ledger-when { font-size: 12.5px; font-weight: 500; line-height: 1.6; color: var(--ink-3); white-space: nowrap; }
 .ledger-what { color: var(--ink-2); }
@@ -259,9 +296,37 @@ section { margin-top: var(--s7); }
 
 /* --- Work tiles --------------------------------------------------------- */
 
-.worklist, .recordlist { display: grid; gap: var(--s4); }
+.recordlist { display: grid; gap: var(--s4); }
+/* The work list spaces itself with margins rather than a grid gap, so a
+   collapsed drawer between two tiles takes up nothing at all. */
+.worklist { display: grid; }
+.worklist > * + * { margin-top: var(--s4); }
+
+/* The rest of the work, folded away. A grid row animates from nothing to the
+   drawer's natural height, which no max-height guess can do cleanly. */
+.drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms var(--ease-slow);
+}
+.drawer-inner {
+  display: grid; gap: var(--s4);
+  min-height: 0; overflow: hidden;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity 240ms var(--ease-slow), transform 240ms var(--ease-slow);
+}
+.drawer.is-open { grid-template-rows: 1fr; }
+.drawer.is-open > .drawer-inner {
+  opacity: 1; transform: none;
+  transition-delay: 90ms;
+}
+.worklist > .drawer:not(.is-open) { margin-top: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .drawer-inner { transition: none; }
+}
 
 .entry, .record {
+  position: relative;
   padding: var(--s3);           /* the same 12px on every side */
   background: var(--panel);
   border-radius: var(--radius);
@@ -280,18 +345,27 @@ section { margin-top: var(--s7); }
 .entry {
   display: grid;
   grid-template-columns: 188px minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
+  grid-template-rows: 1fr;
   column-gap: var(--s4);          /* 16px: near the 12px frame, still breathes */
   row-gap: var(--s2);
 }
-.entry-venue { grid-column: 1; grid-row: 1; }
-.entry-fig   { grid-column: 1; grid-row: 2; }
-.entry-body  { grid-column: 2; grid-row: 1 / span 2; }
+.entry-fig   { grid-column: 1; grid-row: 1; }
+.entry-body  { grid-column: 2; grid-row: 1; }
+/* The venue sits in the tile's own top corner rather than taking a row, so the
+   figure keeps the full height of the tile. The tile's rounded corner clips the
+   chip; the panel fill lets it read over a dark clip or a white plate alike. */
+.entry { overflow: hidden; }
 .entry-venue {
-  display: block;
-  font-size: 12.5px; font-weight: 600; line-height: 1.25;
-  letter-spacing: .07em; text-transform: uppercase;
+  position: absolute; top: 0; left: 0; z-index: 3;       /* above the clips, which use 1 and 2 */
+  padding: 4px 9px;
+  border-radius: 0 0 var(--radius-chip) 0;
+  background: var(--panel);               /* solid, so the label reads cleanly
+                                            over whatever the figure is doing */
+  font-size: 14px; font-weight: 700; line-height: 1.2;  /* caps read ~10% larger
+     than body text, so this sits just under the 15px title rather than above it */
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--mark);
+  pointer-events: none;
 }
 .entry-title {
   display: block; margin-bottom: 4px;
@@ -395,7 +469,7 @@ a.record-title:hover { color: var(--mark); }
 .lede .aside { margin-top: var(--s3); font-size: 13.5px; color: var(--ink-3); }
 
 .colophon {
-  margin-top: var(--s7); padding-top: var(--s4);
+  margin-top: var(--s6); padding-top: var(--s3);
   border-top: 1px solid var(--rule);
   font-size: 12.5px; color: var(--ink-3);
   text-align: center;
@@ -403,47 +477,33 @@ a.record-title:hover { color: var(--mark); }
 
 /* --- Narrow ------------------------------------------------------------- */
 
+/* Between the phone band and ~760px the full-size name would just touch the
+   centred nav, so it eases down a step. */
 @media (max-width: 720px) {
-  body { padding: var(--s5) var(--s5) var(--s7); }
+  body { padding: var(--pad-top) var(--s5) var(--s5); }
 
-  /* Only the text wrapper dissolves. .who stays a single grid item holding
-     the portrait and glyphs together, so their spacing is fixed by the box
-     model rather than by how tall the committee line happens to run. */
-  .masthead {
-    grid-template-columns: minmax(0, 1fr) 156px;
-    column-gap: var(--s4);
-    row-gap: var(--s4);
-    align-items: start;
-    margin-bottom: var(--s5);
-  }
-  .masthead > .prose { display: contents; }
-  .masthead h1    { grid-column: 1; grid-row: 1; font-size: 26px; margin: 0 0 var(--s2); }
-  .masthead .role { grid-column: 1; grid-row: 2; margin: 0; }
-  .masthead .prose p:not(.role) { grid-column: 1 / -1; grid-row: 3; margin: 0; }
-  .masthead .bio-more { grid-column: 1 / -1; grid-row: 4; }
-  .who { grid-column: 2; grid-row: 1 / span 2; }
-
-  .portrait { width: 156px; }
+  /* The name drops back into the page here, but the portrait keeps floating:
+     the identity lines and the bio wrap around it rather than leaving a column
+     of empty space beside a short committee line. */
+  .masthead { margin-bottom: var(--s5); }
+  .masthead > .who { width: 156px; margin: 0 0 var(--s3) var(--s4); }
   .who .contact {
     width: 156px;
     justify-content: space-between;
     margin: var(--s4) 0 0;
   }
 
-  .topbar { margin-bottom: var(--s4); }
-  .nav { gap: var(--s4); }
 
   /* Reset the desktop row/column pins, or the venue lands on top of the
      title once the grid collapses to a single column. */
   .entry {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto auto;
     row-gap: var(--s3);
     padding: var(--s4);
   }
-  .entry-venue { grid-column: 1; grid-row: 1; }
-  .entry-fig   { grid-column: 1; grid-row: 2; width: 100%; max-width: 100%; aspect-ratio: 21 / 9; }
-  .entry-body  { grid-column: 1; grid-row: 3; }
+  .entry-fig   { grid-column: 1; grid-row: 1; width: 100%; max-width: 100%; aspect-ratio: 21 / 9; }
+  .entry-body  { grid-column: 1; grid-row: 2; }
 
   /* Pair: two 4:3 clips across the width. 'alternate' fades the waiting clip;
      'together' keeps both fully visible. */
@@ -473,56 +533,28 @@ a.record-title:hover { color: var(--mark); }
   .lede h1 { font-size: 24px; }
 }
 
-/* Below ~420px the name can no longer share a row with a 156px photo, so the
-   masthead stacks: name, photo + glyphs, identity lines, bio. */
-@media (max-width: 419px) {
+/* Below ~460px the title line can no longer sit beside a 156px photo without
+   breaking in two, so the masthead stacks: photo + glyphs, then the identity
+   lines, then the bio. */
+@media (max-width: 459px) {
+  /* Too narrow to wrap text around a portrait: the masthead stacks instead,
+     so the float is switched off here. */
   .masthead {
+    display: grid;
     grid-template-columns: minmax(0, 1fr);
     row-gap: var(--s4);
   }
-  .masthead h1 {
-    grid-column: 1; grid-row: 1;
-    font-size: 28px; margin: 0;
-    text-align: center;
-  }
-  .who            { grid-column: 1; grid-row: 2; justify-self: center; }
-  .masthead .role { grid-column: 1; grid-row: 3; }
-  .masthead .prose p:not(.role) { grid-column: 1; grid-row: 4; margin: 0; }
-  .masthead .bio-more { grid-column: 1; grid-row: 5; }
+  .masthead > .prose { display: contents; }
+  /* The title line is centred with the name and the glyphs above it. */
+  .masthead > .role { text-align: center; }
+  .masthead > .who { float: none; width: 156px; margin: 0;
+                     grid-column: 1; grid-row: 1; justify-self: center; }
+  .masthead > .role    { grid-column: 1; grid-row: 2; margin: 0; }
+  .masthead .committee { grid-column: 1; grid-row: 3; margin: 0; }
+  .masthead .prose p:not(.role):not(.bio-more) { grid-column: 1; grid-row: 4; margin: 0; }
+  .masthead .prose p.bio-more { grid-column: 1; grid-row: 5; margin: var(--s3) 0 0; }
 
-  /* Three links in a centred row cannot be guaranteed to fit once the theme
-     switch has its own reserved space, and wrapping them is worse than hiding
-     them. Below this width the nav becomes a menu. */
-  .nav-toggle { display: inline-flex; }
-  .topbar { justify-content: flex-end; }
-  .nav {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    left: 0;
-    z-index: 20;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-    min-width: 168px;
-    padding: 6px 0;
-    background: var(--panel);
-    border-radius: var(--radius);
-    box-shadow: var(--lift-2);
-  }
-  .nav[data-open="true"] { display: flex; }
-  .nav a {
-    width: 100%;
-    padding: 12px 18px;
-    border-bottom: 0;
-    font-size: 14px;
-  }
-  .nav a[aria-current="page"] { border-bottom: 0; }
-
-  /* "All publications" drops to its own line; the rule still closes the
-     label above it. A rubric without a link is untouched. */
-  .rubric { gap: var(--s2); flex-wrap: wrap; row-gap: 6px; }
-  .rubric .more { flex-basis: 100%; text-align: right; }
+  .rubric { gap: var(--s2); }
 
   .entry-links a { padding: 5px 9px; font-size: 12px; }
 }
@@ -533,14 +565,6 @@ a.record-title:hover { color: var(--mark); }
   .rubric .more { text-align: center; }
 }
 
-/* The inline nav only exists at 420px and up; scoping this stops it reaching
-   into the menu below that width and stripping its horizontal padding. */
-@media (hover: none) and (pointer: coarse) and (min-width: 420px) {
-  .nav a { padding: 6px 0 5px; }
-  /* Those touch paddings move the links' text centre, so the switch needs a
-     smaller lift here than it does with the desktop paddings. */
-  .topbar .mode { padding-bottom: 3px; }
-}
 
 /* Comfortable hit areas on touch, without changing how the glyphs look. */
 @media (hover: none) and (pointer: coarse) {

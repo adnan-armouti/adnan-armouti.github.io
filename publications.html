@@ -16,12 +16,7 @@
 <body>
 
   <div class="topbar">
-    <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3.5 7h17M3.5 12h17M3.5 17h17"/></svg></button>
-    <nav class="nav" id="site-nav">
-      <a href="index.html">About</a>
-      <a href="publications.html" aria-current="page">Publications</a>
-      <a href="files/pdf/Adnan_Armouti_CV.pdf">CV</a>
-    </nav>
+    <a class="brand" href="index.html">Adnan Armouti</a>
     <button class="mode" id="mode" type="button" aria-label="Switch between light and dark mode" title="Switch theme"><svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg><svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 1.8v2.4M12 19.8v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M1.8 12h2.4M19.8 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"/></svg></button>
   </div>
 
@@ -49,7 +44,6 @@
   <script>
     paintWork('worklist');
     paintPatents('patentlist');
-    wireMenu('nav-toggle', 'site-nav');
     wireMode('mode');
   </script>
 </body>
