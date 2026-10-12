@@ -604,23 +604,36 @@ a.record-title:hover { color: var(--mark); }
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     row-gap: var(--s2);                  /* the identity lines sit close here */
-    margin-bottom: 0;                    /* the grid's own row gap is all that
-                                            remains before the first label */
+    /* The bio closes on the same gap the sections keep between them, measured
+       from the last paragraph rather than from the control. */
+    margin-bottom: 7px;
   }
   .masthead + section { margin-top: 0; }   /* the control sits right on the label */
   .masthead > .prose { display: contents; }
   /* The title line is centred with the name and the glyphs above it. */
   .masthead > .role { text-align: center; }
-  .masthead > .who { float: none; width: 156px; margin: 0 0 var(--s2);
+  /* The three gaps around the portrait match: name to photo, photo to glyphs,
+     glyphs to the title line. The row is held to the height of the marks, so
+     the 40px touch targets a phone adds overflow it instead of inflating it —
+     the spacing is then the same whether or not those targets are in play. */
+  .masthead > .who { float: none; width: 156px; margin: 0 0 -1px;
                      grid-column: 1; grid-row: 1; justify-self: center; }
-  .masthead > .role    { grid-column: 1; grid-row: 2; margin: 0; }
-  .masthead .committee { grid-column: 1; grid-row: 3; margin: 0; }
+  .masthead .contact { height: 17px; align-items: center; margin-top: 15px; }
+  /* Every gap down the masthead is the same 15px, measured between the ink
+     rather than the boxes, so the leading each line carries is absorbed. */
+  .masthead > p.role   { grid-column: 1; grid-row: 2; margin: 0 0 -5px; }
+  .masthead .committee { grid-column: 1; grid-row: 3; margin: 0 0 1px; }   /* half
+     again the other gaps: the research paragraph starts a new thought */
   /* .prose dissolves here, so every one of its children is placed by hand.
      The control and the fold each take their own row; the generic paragraph
      rule must not claim them. */
   .masthead .prose > p:not(.role):not(.bio-toggle) { grid-column: 1; grid-row: 4; margin: 0; }
-  .masthead .bio-toggle { grid-column: 1; grid-row: 5; }
-  .masthead .bio-fold   { grid-column: 1; grid-row: 6; }
+  /* Expanded, the control sits midway in a gap the size of the one between the
+     paragraphs on a wide screen, rather than adding a band of its own. */
+  .masthead p.bio-toggle { grid-column: 1; grid-row: 5; margin-top: -11px; }
+  .masthead .bio-fold   { grid-column: 1; grid-row: 6; margin-top: -9px; }
+  .masthead .bio-fold.is-open { margin-bottom: 29px; }  /* open, the last
+     paragraph is the one that has to clear the section label */
 
   .rubric { gap: var(--s2); }
 
