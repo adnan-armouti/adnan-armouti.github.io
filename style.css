@@ -616,7 +616,7 @@ a.record-title:hover { color: var(--mark); }
     row-gap: var(--s2);                  /* the identity lines sit close here */
     /* The bio closes on the same gap the sections keep between them, measured
        from the last paragraph rather than from the control. */
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
   .masthead + section { margin-top: 0; }   /* the control sits right on the label */
   .masthead > .prose { display: contents; }
@@ -640,10 +640,13 @@ a.record-title:hover { color: var(--mark); }
   .masthead .prose > p:not(.role):not(.bio-toggle) { grid-column: 1; grid-row: 4; margin: 0; }
   /* Expanded, the control sits midway in a gap the size of the one between the
      paragraphs on a wide screen, rather than adding a band of its own. */
-  .masthead p.bio-toggle { grid-column: 1; grid-row: 5; margin-top: -11px; }
-  .masthead .bio-fold   { grid-column: 1; grid-row: 6; margin-top: -9px; }
-  .masthead .bio-fold.is-open { margin-bottom: 29px; }  /* open, the last
-     paragraph is the one that has to clear the section label */
+  /* The paragraph opens above its control, so the control slides down with it,
+     the way each tile's description does. */
+  .masthead .bio-fold   { grid-column: 1; grid-row: 5; margin-top: 4px; }
+  .masthead .bio-fold:not(.is-open) { margin-top: 0; }   /* closed it is only a seam */
+  .masthead p.bio-toggle { grid-column: 1; grid-row: 6; margin-top: -9px; }
+  .masthead .bio-fold.is-open { margin-bottom: 8px; }  /* open, the control
+     sits the same distance under the second paragraph as under the first */
 
   .rubric { gap: var(--s2); }
 

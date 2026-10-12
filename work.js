@@ -245,7 +245,7 @@ function phoneFold(drawer, link, labels) {
 
 function wireMoreBio(drawerId, linkId) {
   phoneFold(document.getElementById(drawerId), document.getElementById(linkId),
-            { shut: 'more about me', open: 'less' });
+            { shut: 'more about me', open: 'show less' });
 }
 
 // Every tile's description folds the same way, so a phone shows title, byline
