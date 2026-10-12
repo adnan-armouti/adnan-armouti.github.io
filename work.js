@@ -185,42 +185,46 @@ function wireMoreWork(listId, linkId) {
   }
 
   const count = host.querySelectorAll('.entry').length;
-  discloser(link, drawers, { shut: `show all (${count})`, open: 'show fewer' }, (isOpen) => {
+  const fold = folder(drawers);
+  discloser(link, { shut: `show all (${count})`, open: 'show fewer' }, (isOpen) => {
+    fold(isOpen);
     if (!swap) return;
     swap.classList.toggle('is-open', isOpen);
     swap.style.width = (isOpen ? wOpen : wShut) + 'px';
     swap.voice();
-  });
+  }, drawers.map((d) => d.id).join(' '));
 }
 
 // Replace a link with the control that opens a set of drawers. The label says
 // what clicking does; the count says how much is folded away.
-function discloser(link, drawers, labels, after) {
+function discloser(link, labels, apply, controls) {
   const { shut, open } = labels;
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'more more-toggle';
   btn.setAttribute('aria-expanded', 'false');
-  btn.setAttribute('aria-controls', drawers.map((d) => d.id).join(' '));
+  if (controls) btn.setAttribute('aria-controls', controls);
   btn.innerHTML = `<span>${shut}</span>${CHEVRON}`;
   link.replaceWith(btn);
-  const fold = (isOpen) => drawers.forEach((d) => {
-    d.hidden = false;
-    d.classList.toggle('is-open', isOpen);
-    d.inert = !isOpen;              // closed: not tabbable, not announced
-  });
-  fold(false);
+  apply(false);
 
   let isOpen = false;
   btn.addEventListener('click', () => {
     isOpen = !isOpen;
-    fold(isOpen);
+    apply(isOpen);
     btn.setAttribute('aria-expanded', String(isOpen));
     btn.querySelector('span').textContent = isOpen ? open : shut;
-    if (after) after(isOpen);
   });
-  return { btn, fold, isOpen: () => isOpen };
+  return { btn, apply, isOpen: () => isOpen };
 }
+
+// Drawers: closed ones are clipped to nothing, and left out of the tab order
+// and the accessibility tree.
+const folder = (drawers) => (isOpen) => drawers.forEach((d) => {
+  d.hidden = false;
+  d.classList.toggle('is-open', isOpen);
+  d.inert = !isOpen;
+});
 
 // A fold that only exists on a phone: there the screen fills before any of the
 // work appears, so secondary prose waits behind a control. At every other width
@@ -229,9 +233,10 @@ const PHONE = matchMedia('(max-width: 459px)');
 
 function phoneFold(drawer, link, labels) {
   if (!drawer || !link) return;
-  const ctl = discloser(link, [drawer], labels);
+  const fold = folder([drawer]);
+  const ctl = discloser(link, labels, fold, drawer.id);
   const sync = () => {
-    if (PHONE.matches) ctl.fold(ctl.isOpen());
+    if (PHONE.matches) fold(ctl.isOpen());
     else { drawer.classList.remove('is-open'); drawer.inert = false; }
   };
   PHONE.addEventListener('change', sync);
@@ -254,18 +259,38 @@ function wireNotes(listId) {
   });
 }
 
-// The news list folds the same way. Without scripting every entry is simply
-// listed, so the drawer here starts open and the script collapses it.
+// The news list keeps every entry in flow and simply shows a window on it: a
+// few rows deep and scrollable while folded, its full height once opened. The
+// height animates between the two, so the page does not jump.
 function wireMoreNews(listId, linkId) {
   const list = document.getElementById(listId);
   const link = document.getElementById(linkId);
   if (!list || !link) return;
-  const drawers = [...list.querySelectorAll('.drawer')];
-  if (!drawers.length) return;
-  const mark = (isOpen) => list.classList.toggle('is-folded', !isOpen);
-  mark(false);
   const count = list.querySelectorAll('.ledger-row').length;
-  discloser(link, drawers, { shut: `show all (${count})`, open: 'show fewer' }, mark);
+  if (!count) return;
+
+  // The fade at the foot says there is more below; lift it at the end.
+  const edge = () => list.classList.toggle('at-end',
+    list.scrollTop + list.clientHeight >= list.scrollHeight - 1);
+  list.addEventListener('scroll', edge, { passive: true });
+  addEventListener('resize', edge);
+
+  discloser(link, { shut: `show all (${count})`, open: 'show fewer' }, (isOpen) => {
+    const full = list.scrollHeight;
+    if (!isOpen && !list.classList.contains('is-folded')) {
+      list.style.maxHeight = full + 'px';          // start from where it stands
+      list.classList.add('is-folded');
+      requestAnimationFrame(() => { list.style.maxHeight = ''; edge(); });
+      return;
+    }
+    if (!isOpen) { list.classList.add('is-folded'); edge(); return; }
+    list.style.maxHeight = list.clientHeight + 'px';
+    requestAnimationFrame(() => { list.style.maxHeight = full + 'px'; });
+    list.addEventListener('transitionend', () => {
+      list.classList.remove('is-folded');
+      list.style.maxHeight = '';
+    }, { once: true });
+  }, list.id);
 }
 
 // Phones show a clip pair side by side; wider screens show one slot.

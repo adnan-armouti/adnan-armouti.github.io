@@ -275,12 +275,22 @@ section { margin-top: var(--s7); }
 
 /* --- News: a short scrolling ledger ------------------------------------- */
 
-/* The ledger shows its most recent entries and folds the rest into a drawer,
-   the same disclosure the papers use. Rows carry their own rule, so the
-   drawer's inner box drops the grid gap the tiles want. */
-.ledger .drawer-inner { display: block; }
-.ledger .drawer-inner .ledger-row:last-child { border-bottom: 0; }
-.ledger.is-folded > .ledger-row:last-of-type { border-bottom: 0; }
+/* Folded, the ledger is a window a few entries deep that scrolls, with a fade
+   at its foot to say there is more; opened, it stands at its full height. The
+   height animates between the two. */
+.ledger { transition: max-height 360ms var(--ease-slow); }
+.ledger.is-folded {
+  max-height: 176px;
+  overflow-y: auto;
+  padding-right: var(--s3);
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+}
+.ledger.is-folded.at-end { -webkit-mask-image: none; mask-image: none; }
+.ledger::-webkit-scrollbar { width: 5px; }
+.ledger::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 3px; }
+.ledger-row:last-child { border-bottom: 0; }
+@media (prefers-reduced-motion: reduce) { .ledger { transition: none; } }
 
 .ledger-row {
   display: grid;
