@@ -105,7 +105,7 @@ function entry(w) {
     <a class="entry-title" href="${esc(w.href)}">${esc(w.title)}</a>
     <p class="entry-authors"><span class="name-wide">${byline(w.authors)}</span><span class="name-narrow">${byline(w.authors, true)}</span></p>
     <div class="note-fold fold" id="note-${++noteId}"><div class="fold-inner"><p class="entry-note">${esc(w.note)}</p></div></div>
-    <p class="note-toggle fold-toggle"><a class="more" href="#note-${noteId}">see more</a></p>
+    <p class="note-toggle fold-toggle"><a class="more" href="#note-${noteId}">show more</a></p>
     <nav class="entry-links">${resources(w.resources)}</nav>
   </div>
 </article>`;
@@ -255,7 +255,7 @@ function wireNotes(listId) {
   if (!host) return;
   host.querySelectorAll('.note-fold').forEach((fold) => {
     const link = host.querySelector(`.note-toggle a[href="#${fold.id}"]`);
-    phoneFold(fold, link, { shut: 'see more', open: 'see less' });
+    phoneFold(fold, link, { shut: 'show more', open: 'show less' });
   });
 }
 
