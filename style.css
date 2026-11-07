@@ -1,0 +1,675 @@
+/* ==========================================================================
+   Adnan Armouti — site styles
+
+   One column, one typeface, tiles for the work. Colour comes from my ECCV
+   poster (carnelian #b31b1b on a warm ground).
+   ========================================================================== */
+
+/* --- Tokens ------------------------------------------------------------- */
+
+/* A few sizes here are measured rather than chosen — the name's fluid size,
+   the portrait column, the tile's four-line budget. They are tuned to Inter
+   at these weights and to the text as written, and want re-measuring if the
+   typeface or those strings change. Each carries a note at its rule. */
+
+:root {
+  --paper:  #f7f6f4;
+  --panel:  #fbfbfc;
+  --ink:    #17161a;
+  --ink-2:  #55525c;
+  --ink-3:  #8b8892;
+  --rule:   #e5e2dd;
+  --rule-2: #cdc8c1;
+  --mark:   #b31b1b;
+  --chip:   #eeeef1;
+  --radius: 10px;
+  --radius-chip: 5px;
+  --lift:   0 1px 2px rgba(23, 22, 26, .04);
+  --lift-2: 0 4px 14px rgba(23, 22, 26, .07);
+
+  --sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px;
+  --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px;
+
+  --shell: 1008px;
+  --pad-top: 20px;                       /* the page's top gutter: a shade under
+     the name's cap height, so the type does not crowd the window edge */        /* 960px of content + the 24px gutters, matching the project pages */
+  --ease: 160ms cubic-bezier(.4, 0, .2, 1);
+  --ease-slow: cubic-bezier(.33, 0, .16, 1);
+}
+
+:root[data-mode="night"] {
+  --paper: #131316; --panel: #1b1b1f;
+  --ink:   #ecebee; --ink-2: #a3a0aa; --ink-3: #6e6b76;
+  --rule:  #2b2b32; --rule-2: #3d3d47;
+  --mark:  #e05252;
+  --chip:  #26262d;
+  --lift:  0 1px 3px rgba(0, 0, 0, .34);
+  --lift-2: 0 6px 20px rgba(0, 0, 0, .5);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="day"]) {
+    --paper: #131316; --panel: #1b1b1f;
+    --ink:   #ecebee; --ink-2: #a3a0aa; --ink-3: #6e6b76;
+    --rule:  #2b2b32; --rule-2: #3d3d47;
+    --mark:  #e05252;
+    --chip:  #26262d;
+    --lift:  0 1px 3px rgba(0, 0, 0, .34);
+    --lift-2: 0 6px 20px rgba(0, 0, 0, .5);
+  }
+}
+
+/* --- Base --------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+a, button { -webkit-tap-highlight-color: transparent; }
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--mark); outline-offset: 2px; border-radius: 2px; }
+html { scroll-behavior: smooth; }
+body {
+  position: relative;
+  margin: 0 auto;
+  max-width: var(--shell);
+  padding: var(--pad-top) var(--s5) var(--s6);
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 15px/1.62 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; }
+
+/* One link treatment for running text, used everywhere prose appears. */
+a { color: inherit; }
+.prose a, .bio-more a, .ledger-what a, .lede a, .masthead > .role a {
+  color: var(--mark);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--ease), text-decoration-color var(--ease);
+}
+.prose a:hover, .bio-more a:hover, .ledger-what a:hover, .lede a:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.prose strong, .bio-more strong, .lede strong { font-weight: 600; color: var(--ink); }
+
+/* --- Masthead ----------------------------------------------------------- */
+
+/* Identity sits beside the bio rather than above it: the bio's natural
+   measure left the right half of the page empty and pushed the work down. */
+/* Name and title sit above the portrait; the committee line starts level with
+   its top edge, and the bio runs beside it. The portrait column is sized so
+   the glyph row and the last line of the bio finish together. */
+/* Wide screens float the portrait: the identity lines start level with its top
+   edge, the bio runs beside it, and the rest of the bio wraps back underneath
+   the glyph row. Phones switch to the grid further down. */
+.masthead { margin-bottom: var(--s6); }
+.masthead > .who {
+  float: right;
+  width: min(206px, 30%);                /* sized so the text resumes half a line
+                                            under the glyph row, not a full one */
+  margin: 0 0 var(--s3) var(--s6);       /* clear space under the glyphs */
+}
+.masthead::after { content: ""; display: table; clear: both; }
+.bio-more { margin: 0; color: var(--ink-2); }
+
+.portrait {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+}
+/* The bar holds the name and the theme switch, one at each end. The name is
+   out of flow so it can overhang the bar's height, and sized fluidly so it
+   always clears the switch, down to the narrowest phone. */
+.topbar h1, .topbar .brand {
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  font-size: clamp(16px, calc((100vw - 104px) / 7.1), 36px);
+  /* the divisor is the name's width per 1px of type, so the box can never
+     reach the switch: full size down to ~345px, then it tracks the room left */
+  font-weight: 600; letter-spacing: -.025em; line-height: 1.12;
+}
+.topbar .brand { color: var(--ink); text-decoration: none; }
+.topbar .brand:hover { color: var(--mark); }
+.prose .role, .masthead > .role, .lede .role { margin: 0 0 12px; font-size: 13.5px; font-style: italic; line-height: 1.6; color: var(--ink-2); }
+/* The title line sits close under the name; the committee line and the
+   portrait's top edge follow right after it. */
+.masthead > p.role { margin-bottom: 3px; }
+.role a { color: var(--mark); font-weight: 500; text-decoration: none; }
+.role a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Nav centred in the page; the mode switch takes the right corner. The empty
+   first column is what keeps the nav optically centred. */
+.topbar {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 28px;
+  margin-bottom: 9px;                    /* the lifted name overhangs the bar, so
+                                            this is the gap under the name itself */
+  /* The switch is out of flow, so the centred nav would otherwise grow
+     underneath it. Reserving its width on BOTH sides keeps the nav centred
+     on the page while making a collision impossible at any width or zoom. */
+  padding: 0 44px;
+}
+/* A 17px mark beside 36px capitals: centring the two boxes leaves the glyph's
+   top edge 5px below the cap line, which reads as sagging. Lift it so the two
+   start together — the switch then also sits midway between the window edge
+   and the first line of content. */
+.topbar .mode { position: absolute; right: 0; top: 50%; transform: translateY(calc(-50% - 5px)); }
+
+
+/* --- Prose + contact ---------------------------------------------------- */
+
+.prose p { margin: 0 0 var(--s3); color: var(--ink-2); }
+.prose p:last-child { margin-bottom: 0; }
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s4);
+  margin: var(--s4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.contact a {
+  display: block;
+  color: var(--ink-3);
+  transition: color var(--ease);
+}
+@media (hover: hover) { .contact a:hover { color: var(--mark); } }
+.contact svg { width: 17px; height: 17px; display: block; }
+.contact .cv {
+  color: var(--mark);
+  font-size: 16px; font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em; line-height: 1;
+  text-decoration: none;
+  transform: translateY(1px);            /* optically centred on the glyphs */
+}
+.contact .cv:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Crescent while light, sun while dark — the glyph shows what you'd switch to. */
+.mode {
+  display: inline-flex; align-items: center;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  color: var(--ink-3);
+  transition: color var(--ease);
+}
+@media (hover: hover) { .mode:hover { color: var(--mark); } }
+.mode svg { width: 17px; height: 17px; display: block; }
+.mode .i-sun { display: none; }
+:root[data-mode="night"] .mode .i-sun  { display: block; }
+:root[data-mode="night"] .mode .i-moon { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-mode="day"]) .mode .i-sun  { display: block; }
+  :root:not([data-mode="day"]) .mode .i-moon { display: none; }
+}
+
+/* --- Section rubric ----------------------------------------------------- */
+
+section { margin-top: var(--s7); }
+.masthead + section { margin-top: var(--s6); }
+
+.rubric {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); row-gap: 6px;
+  margin: 0 0 var(--s5);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.rubric::before { content: ""; width: 3px; height: 13px; background: var(--mark); flex: none; }
+.rubric::after  { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.rubric .more {
+  order: 1;                 /* sits after the rule, hard against the right */
+  margin-inline: auto;      /* no effect on the heading line, where the rule
+                               takes the slack; centres it once it wraps */
+  font-weight: 500; letter-spacing: .06em;
+  color: var(--mark); text-decoration: none;
+  transition: opacity var(--ease);
+  opacity: .9;
+}
+.rubric .more:hover { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+
+/* The section's first word trades places as the list grows. Both words share
+   one grid cell so they can cross-fade in place, and the box animates between
+   their widths so the rest of the heading and the rule follow along. */
+.swap {
+  display: inline-grid; justify-items: start;
+  overflow: hidden; vertical-align: bottom;
+  transition: width 320ms var(--ease-slow);
+}
+.swap .w {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  transition: opacity 200ms var(--ease-slow), transform 260ms var(--ease-slow);
+}
+.swap .w-open { opacity: 0; transform: translateX(-.35em); }
+.swap.is-open .w-shut { opacity: 0; transform: translateX(.35em); }
+.swap.is-open .w-open { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .swap, .swap .w { transition: none; }
+}
+
+/* One control, at the end of the rule where the link used to sit. Its label is
+   what clicking does, so the chevron only has to show which way the list moves. */
+.more-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin: 0; padding: 0;
+  border: 0; background: none; cursor: pointer;
+  font: inherit; letter-spacing: .06em; text-transform: inherit;
+}
+.more-toggle .caret {
+  width: 12px; height: 12px;
+  transition: transform 300ms var(--ease-slow);
+}
+.more-toggle[aria-expanded="true"] .caret { transform: rotate(180deg); }
+@media (hover: hover) { .more-toggle:hover span { text-decoration: underline; text-underline-offset: 3px; } }
+@media (prefers-reduced-motion: reduce) { .more-toggle .caret { transition: none; } }
+
+/* --- News: a short scrolling ledger ------------------------------------- */
+
+/* Folded, the ledger is a window a few entries deep that scrolls, with a fade
+   at its foot to say there is more; opened, it stands at its full height. The
+   height animates between the two. */
+.ledger { transition: max-height 360ms var(--ease-slow); }
+.ledger.is-folded {
+  max-height: 176px;
+  overflow-y: auto;
+  padding-right: var(--s3);
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 86%, transparent 100%);
+}
+.ledger.is-folded.at-end { -webkit-mask-image: none; mask-image: none; }
+.ledger::-webkit-scrollbar { width: 5px; }
+.ledger::-webkit-scrollbar-thumb { background: var(--rule-2); border-radius: 3px; }
+.ledger-row:last-child { border-bottom: 0; }
+@media (prefers-reduced-motion: reduce) { .ledger { transition: none; } }
+
+.ledger-row {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr);
+  gap: var(--s4);
+  padding: var(--s3) 0;
+  border-bottom: 1px dashed var(--rule);
+  font-size: 14px;
+}
+.ledger > .ledger-row:first-child { padding-top: 0; }
+.ledger-row:last-child { border-bottom: 0; }
+.ledger-when { font-size: 12.5px; font-weight: 500; line-height: 1.6; color: var(--ink-3); white-space: nowrap; }
+.ledger-what { color: var(--ink-2); }
+.ledger-what a { color: var(--ink); font-weight: 500; }
+
+/* --- Work tiles --------------------------------------------------------- */
+
+.recordlist { display: grid; gap: var(--s4); }
+/* The work list spaces itself with margins rather than a grid gap, so a
+   collapsed drawer between two tiles takes up nothing at all. */
+.worklist { display: grid; }
+.worklist > * + * { margin-top: var(--s4); }
+
+/* The rest of the work, folded away. A grid row animates from nothing to the
+   drawer's natural height, which no max-height guess can do cleanly. */
+.drawer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 360ms var(--ease-slow);
+}
+.drawer-inner {
+  display: grid; gap: var(--s4);
+  min-height: 0; overflow: hidden;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity 240ms var(--ease-slow), transform 240ms var(--ease-slow);
+}
+.drawer.is-open { grid-template-rows: 1fr; }
+html:not(.js) .drawer { grid-template-rows: 1fr; }     /* no script: nothing folds */
+.drawer.is-open > .drawer-inner {
+  opacity: 1; transform: none;
+  transition-delay: 90ms;
+}
+.worklist > .drawer:not(.is-open) { margin-top: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .drawer, .drawer-inner { transition: none; }
+}
+
+/* Phone-only folds: the bio's second paragraph and each tile's description are
+   ordinary flow at every other width, so the work starts nearer the top of a
+   phone screen without costing anything on a desktop. */
+.fold-toggle { display: none; }
+.fold, .fold > .fold-inner { display: block; }
+.name-narrow, .entry-links .on-narrow { display: none; }
+@media (max-width: 459px) {
+  html.js .fold-toggle { display: block; margin: 0; }
+  html.js .bio-toggle { text-align: center; }
+
+  /* The portrait is centred here, so the name centres over it. The switch keeps
+     its corner, and the name's size reserves room on both sides of the bar. */
+  .topbar h1 {
+    left: 0; right: 0;
+    text-align: center;
+    /* The obstacle is the switch's 17px mark, not its 40px target, so the name
+       only has to clear ~29px plus a little air on each side. */
+    font-size: clamp(20px, calc((100vw - 82px) / 6.9), 36px);
+    /* Centres, not tops: the name changes size here while the mark does not, and
+       two marks of different size read as level when their centres agree. */
+    transform: translateY(calc(-50% - 5px));
+  }
+  /* The switch moves out into the page gutter. Its 40px touch target centres a
+     17px glyph, so the box goes to the window edge to put the mark 12px in. */
+  .topbar .mode { right: calc(var(--s5) * -1); }
+  /* A link inside body copy, not a section label: carnelian and the body's
+     own size, with the same chevron the sections use. */
+  .fold-toggle .more-toggle { color: var(--mark); font-size: 13.5px; letter-spacing: 0; }
+  .note-toggle .more-toggle { font-size: 13px; }
+  html.js .fold {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 360ms var(--ease-slow);
+  }
+  html.js .fold.is-open { grid-template-rows: 1fr; }
+  html.js .fold > .fold-inner {
+    min-height: 0; overflow: hidden;
+    opacity: 0; transform: translateY(-4px);
+    transition: opacity 240ms var(--ease-slow), transform 240ms var(--ease-slow);
+  }
+  html.js .fold.is-open > .fold-inner { opacity: 1; transform: none; transition-delay: 90ms; }
+  /* The control reads as the next line of the text it opens: a line's worth of
+     space above it, a third of that below, before the links. */
+  html.js .note-fold > .fold-inner > .entry-note { margin-bottom: 0; }
+  html.js .note-toggle { margin-top: -7px; margin-bottom: 6px; text-align: center; }
+  html.js .note-fold.is-open + .note-toggle { margin-top: -1px; }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .fold, html.js .fold > .fold-inner { transition: none; }
+  }
+
+  /* Short bylines and a short chip row: a phone has no room for the rest. */
+  .name-wide { display: none; }
+  .name-narrow { display: inline; }
+  .entry-links a.on-wide,
+  .entry-links .on-wide { display: none; }   /* whole chips, and words in them */
+  .entry-links .on-narrow { display: inline; }
+}
+
+.entry, .record {
+  position: relative;
+  padding: var(--s3);           /* the same 12px on every side */
+  background: var(--panel);
+  border-radius: var(--radius);
+  box-shadow: var(--lift);
+  transition: box-shadow var(--ease), transform var(--ease);
+}
+@media (hover: hover) {
+  .entry:hover, .record:hover {
+    box-shadow: var(--lift-2);
+    transform: translateY(-1px);
+  }
+}
+
+/* Left column stacks venue over figure; the body spans both rows so the
+   title starts level with the venue instead of hanging below it. */
+.entry {
+  display: grid;
+  grid-template-columns: 188px minmax(0, 1fr);
+  grid-template-rows: 1fr;
+  column-gap: var(--s4);          /* 16px: near the 12px frame, still breathes */
+  row-gap: var(--s2);
+}
+.entry-fig   { grid-column: 1; grid-row: 1; }
+.entry-body  { grid-column: 2; grid-row: 1; }
+/* The venue sits in the tile's own top corner rather than taking a row, so the
+   figure keeps the full height of the tile. The tile's rounded corner clips the
+   chip; the panel fill lets it read over a dark clip or a white plate alike. */
+.entry { overflow: hidden; }
+.entry-venue {
+  position: absolute; top: 0; left: 0; z-index: 3;       /* above the clips, which use 1 and 2 */
+  padding: 4px 9px;
+  border-radius: 0 0 var(--radius-chip) 0;
+  background: var(--panel);               /* solid, so the label reads cleanly
+                                            over whatever the figure is doing */
+  font-size: 14px; font-weight: 700; line-height: 1.2;  /* caps read ~10% larger
+     than body text, so this sits just under the 15px title rather than above it */
+  letter-spacing: .06em; text-transform: uppercase;
+  color: var(--mark);
+  pointer-events: none;
+}
+.entry-title {
+  display: block; margin-bottom: 4px;
+  font-size: 15px; font-weight: 600; line-height: 1.42;
+  color: var(--ink); text-decoration: none;
+  transition: color var(--ease);
+}
+.entry-title:hover { color: var(--mark); }
+
+.entry-authors { margin: 0 0 6px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
+.entry-authors strong { font-weight: 600; color: var(--ink); }
+.entry-authors a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--ease);
+}
+.entry-authors a:hover { color: var(--mark); }
+
+/* Roman, not italic — a full sentence of italic fights legibility. */
+.entry-note { margin: 0 0 10px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+
+.honour {
+  display: inline-block; margin-left: var(--s2); padding: 1px 6px;
+  border: 1px solid var(--mark); border-radius: 2px;
+  font-size: 9.5px; font-weight: 600;
+  letter-spacing: .09em; text-transform: uppercase;
+  color: var(--mark); vertical-align: 1px;
+}
+
+.entry-links { display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px; }
+.entry-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--chip);
+  border-radius: var(--radius-chip);
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: background var(--ease), color var(--ease);
+}
+.entry-links a svg {
+  width: 12px; height: 12px; flex: none; opacity: .75;
+  /* box-centring puts the glyph a hair above the lowercase label's optical
+     centre; drop it to sit on the x-height */
+  transform: translateY(1px);
+}
+@media (hover: hover) {
+  .entry-links a:hover { background: var(--mark); color: #fff; }
+  .entry-links a:hover svg { opacity: 1; }
+}
+
+.entry-fig {
+  position: relative;
+  align-self: stretch;          /* fill the row: the space above and below was unused */
+  min-height: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--panel);     /* match the tile: anything showing at the
+                                   anti-aliased corners is then invisible */
+}
+.entry-fig.contain { background: #fff; }   /* letterboxed art on its own white card */
+/* Media is taken out of flow so its intrinsic size can never grow the row;
+   the text column alone decides the tile height. */
+.entry-fig img, .entry-fig video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.entry-fig.contain img, .entry-fig.contain video { object-fit: contain; }
+
+/* A clip pair. Wide screens: the two share one slot and only the active one
+   shows, so they play in turn. Phones: side by side (see the phone band). */
+.entry-fig.pair { position: relative; }
+.entry-fig.pair video {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  z-index: 1;
+}
+.entry-fig.pair video.is-active { opacity: 1; z-index: 2; }
+/* The clip that just finished stays fully visible beneath the incoming one
+   while that fades in on top (its last frame is the next clip's first), so
+   the switch never dips through the slot's background; then it is dropped
+   without a transition, already hidden. */
+.entry-fig.pair video.is-leaving { opacity: 1; transition: none; }
+
+/* --- Patents ------------------------------------------------------------ */
+
+.record-no {
+  display: block; margin-bottom: 5px;
+  font-size: 12.5px; font-weight: 600; line-height: 1.25;
+  letter-spacing: .07em; text-transform: uppercase;
+  color: var(--mark);
+}
+.record-title { display: block; margin-bottom: 4px; font-size: 14.5px; font-weight: 600; color: var(--ink); text-decoration: none; }
+a.record-title:hover { color: var(--mark); }
+
+/* --- Publications lede + colophon --------------------------------------- */
+
+.lede { margin-bottom: var(--s6); }
+.lede h1 + p { margin-top: var(--s4); }
+.lede h1 { margin: 0 0 var(--s3); font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
+.lede p { margin: 0; color: var(--ink-2); }
+.lede .aside { margin-top: var(--s3); font-size: 13.5px; color: var(--ink-3); }
+
+.colophon {
+  margin-top: var(--s6); padding-top: var(--s3);
+  border-top: 1px solid var(--rule);
+  font-size: 12.5px; color: var(--ink-3);
+  text-align: center;
+}
+
+/* --- Narrow ------------------------------------------------------------- */
+
+/* Between the phone band and ~760px the full-size name would just touch the
+   centred nav, so it eases down a step. */
+@media (max-width: 720px) {
+  body { padding: var(--pad-top) var(--s5) var(--s5); }
+
+  /* The name drops back into the page here, but the portrait keeps floating:
+     the identity lines and the bio wrap around it rather than leaving a column
+     of empty space beside a short committee line. */
+  .masthead { margin-bottom: var(--s5); }
+  .masthead > .who { width: 156px; margin: 0 0 var(--s3) var(--s4); }
+  .who .contact {
+    width: 156px;
+    justify-content: space-between;
+    margin: var(--s4) 0 0;
+  }
+
+
+  /* Reset the desktop row/column pins, or the venue lands on top of the
+     title once the grid collapses to a single column. */
+  .entry {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: var(--s3);
+    padding: var(--s4);
+  }
+  .entry-fig   { grid-column: 1; grid-row: 1; width: 100%; max-width: 100%; aspect-ratio: 21 / 9; }
+  .entry-body  { grid-column: 1; grid-row: 2; }
+
+  /* Pair: two 4:3 clips across the width. 'alternate' fades the waiting clip;
+     'together' keeps both fully visible. */
+  .entry-fig.pair {
+    aspect-ratio: auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s2);
+    background: none;
+    overflow: visible;
+  }
+  .entry-fig.pair video {
+    position: static;
+    width: 100%; height: auto;
+    aspect-ratio: 476 / 400;
+    border-radius: var(--radius);
+    background: var(--panel);
+    opacity: 1;
+  }
+  .entry-fig.pair[data-pair="alternate"] video:not(.is-active) { opacity: .28; }
+
+  .record { padding: var(--s4); }
+  .rubric { gap: var(--s2); font-size: 11px; }
+  .rubric .more { font-size: 11px; }
+  .ledger-row { grid-template-columns: 76px minmax(0, 1fr); gap: var(--s3); }
+  .lede h1 { font-size: 24px; }
+}
+
+/* Below ~460px the title line can no longer sit beside a 156px photo without
+   breaking in two, so the masthead stacks: photo + glyphs, then the identity
+   lines, then the bio. */
+@media (max-width: 459px) {
+  /* Too narrow to wrap text around a portrait: the masthead stacks instead,
+     so the float is switched off here. */
+  .masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--s2);                  /* the identity lines sit close here */
+    /* The bio closes on the same gap the sections keep between them, measured
+       from the last paragraph rather than from the control. */
+    margin-bottom: 5px;
+  }
+  .masthead + section { margin-top: 0; }   /* the control sits right on the label */
+  .masthead > .prose { display: contents; }
+  /* The title line is centred with the name and the glyphs above it. */
+  .masthead > .role { text-align: center; }
+  /* The three gaps around the portrait match: name to photo, photo to glyphs,
+     glyphs to the title line. The row is held to the height of the marks, so
+     the 40px touch targets a phone adds overflow it instead of inflating it —
+     the spacing is then the same whether or not those targets are in play. */
+  .masthead > .who { float: none; width: 156px; margin: 0 0 -1px;
+                     grid-column: 1; grid-row: 1; justify-self: center; }
+  .masthead .contact { height: 17px; align-items: center; margin-top: 15px; }
+  /* Every gap down the masthead is the same 15px, measured between the ink
+     rather than the boxes, so the leading each line carries is absorbed. */
+  .masthead > p.role   { grid-column: 1; grid-row: 2; margin: 0 0 -5px; }
+  .masthead .committee { grid-column: 1; grid-row: 3; margin: 0 0 1px; }   /* half
+     again the other gaps: the research paragraph starts a new thought */
+  /* .prose dissolves here, so every one of its children is placed by hand.
+     The control and the fold each take their own row; the generic paragraph
+     rule must not claim them. */
+  .masthead .prose > p:not(.role):not(.bio-toggle) { grid-column: 1; grid-row: 4; margin: 0; }
+  /* Expanded, the control sits midway in a gap the size of the one between the
+     paragraphs on a wide screen, rather than adding a band of its own. */
+  /* The paragraph opens above its control, so the control slides down with it,
+     the way each tile's description does. */
+  .masthead .bio-fold   { grid-column: 1; grid-row: 5; margin-top: 4px; }
+  .masthead .bio-fold:not(.is-open) { margin-top: 0; }   /* closed it is only a seam */
+  .masthead p.bio-toggle { grid-column: 1; grid-row: 6; margin-top: -9px; }
+  .masthead .bio-fold.is-open { margin-bottom: 8px; }  /* open, the control
+     sits the same distance under the second paragraph as under the first */
+
+  .rubric { gap: var(--s2); }
+
+  .entry-links a { padding: 5px 9px; font-size: 12px; }
+}
+
+
+/* Comfortable hit areas on touch, without changing how the glyphs look. */
+@media (hover: none) and (pointer: coarse) {
+  .contact a, .mode {
+    min-width: 40px;
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .contact { gap: var(--s2); margin-left: -10px; }
+  .masthead .contact a { min-width: 28px; }
+  .masthead .contact { gap: 0; margin-left: 0; }
+  .entry-links a { padding: 7px 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 1ms !important; }
+}
