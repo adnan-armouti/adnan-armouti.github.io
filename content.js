@@ -71,6 +71,7 @@ const WORK = [
       { label: 'project page', href: 'https://3d-point-splatting.github.io/' },
       { label: 'paper',        href: 'https://arxiv.org/abs/2609.11894' },
       { label: 'code',         href: 'https://github.com/adnan-armouti/3D-Point-Splatting' },
+      { label: 'video',        href: 'https://recorder-v3.slideslive.com/?share=115217&s=0eaef98b-ef36-45d9-9c6e-190b46abb0e4' },
       { label: 'poster',       href: 'https://drive.google.com/file/d/1CDRvIcdgemgewgn5o9qEdWCveWDxPmW3/view?usp=sharing' },
     ],
   },
